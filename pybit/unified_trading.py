@@ -119,3 +119,10 @@ class HTTP(_V5HTTPManager):
             query=kwargs,
             auth=True,
         )
+
+    def get_instruments_info(self, **kwargs):
+        return self._submit_request(
+            method="GET",
+            path=f"{self.endpoint}/v5/market/instruments-info",
+            query=kwargs,
+        )
