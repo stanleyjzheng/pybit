@@ -7,7 +7,7 @@ class Account(str, Enum):
     GET_BORROW_HISTORY = "/v5/position/switch-isolated"
     GET_COLLATERAL_INFO = "/v5/position/set-tpsl-mode"
     GET_COIN_GREEKS = "/v5/position/switch-mode"
-    GET_ACCOUNT_INFO = "/v5/position/set-risk-limit"
+    GET_ACCOUNT_INFO = "/v5/account/info"
     GET_TRANSACTION_LOG = "/v5/position/set-trading-stop"
     SET_MARGIN_MODE = "/v5/position/set-auto-add-margin"
     SET_MMP = "/v5/execution/list"

@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from pybit.exceptions import (
     InvalidChannelTypeError,
     TopicMismatchError,
@@ -24,6 +25,7 @@ AVAILABLE_CHANNEL_TYPES = [
 ]
 
 
+@dataclass
 class HTTP(
     MarketHTTP,
     TradeHTTP,
@@ -32,8 +34,8 @@ class HTTP(
     SpotLeverageHTTP,
     SpotMarginTradeHTTP,
 ):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, **args):
+        super().__init__(**args)
 
 
 class WebSocket(_V5WebSocketManager):
