@@ -1,5 +1,5 @@
 from ._http_manager import _V5HTTPManager
-from pybit.endpoints.account import Account
+from .account import Account
 
 
 class AccountHTTP(_V5HTTPManager):

@@ -1,5 +1,5 @@
 from ._http_manager import _V5HTTPManager
-from pybit.endpoints.trade import Trade
+from .trade import Trade
 
 
 class TradeHTTP(_V5HTTPManager):

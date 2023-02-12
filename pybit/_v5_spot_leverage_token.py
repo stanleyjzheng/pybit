@@ -1,5 +1,5 @@
 from ._http_manager import _V5HTTPManager
-from pybit.endpoints.spot_leverage_token import SpotLeverageToken
+from .spot_leverage_token import SpotLeverageToken
 
 
 class SpotLeverageHTTP(_V5HTTPManager):
