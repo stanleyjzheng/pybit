@@ -296,11 +296,12 @@ class _V3WebSocketManager(_WebSocketManager):
         self.symbol_wildcard = "*"
         self.symbol_separator = "|"
 
-    def subscribe(self, topic, callback, symbol=None):
-        if symbol is None:
+    def subscribe(self, topic, callback):
+        splitted_topic = topic.split(".")
+        if len(splitted_topic) > 1:
+            symbol = [splitted_topic[-1]]
+        else:
             symbol = []
-        elif type(symbol) == str:
-            symbol = [symbol]
 
         def prepare_subscription_args(list_of_symbols):
             """
@@ -479,22 +480,18 @@ class _V3WebSocketManager(_WebSocketManager):
         """
         Regex to return the topic without the symbol.
         """
+<<<<<<< Updated upstream
         def is_usdc_private_topic():
             if re.search(r".*\..*\..*\.", topic_string):
                 return True
 
         if topic_string in self.private_topics or is_usdc_private_topic():
-            return topic_string
-        topic_without_symbol = re.match(r".*(\..*|)(?=\.)", topic_string)
-        return topic_without_symbol[0]
+=======
 
-    @staticmethod
-    def _extract_symbol(topic_string):
-        """
-        Regex to return the symbol without the topic.
-        """
-        symbol_without_topic = re.search(r"(?!.*\.)[A-Z*|]*$", topic_string)
-        return symbol_without_topic[0]
+        if topic_string in self.private_topics:
+>>>>>>> Stashed changes
+            return topic_string
+        return topic_string
 
     def _check_callback_directory(self, topics):
         for topic in topics:

@@ -1,3 +1,15 @@
+class UnauthorizedExceptionError(Exception):
+    pass
+
+
+class InvalidChannelTypeError(Exception):
+    pass
+
+
+class TopicMismatchError(Exception):
+    pass
+
+
 class FailedRequestError(Exception):
     """
     Exception raised for failed requests.
@@ -8,14 +20,15 @@ class FailedRequestError(Exception):
         status_code -- The code number returned.
         time -- The time of the error.
     """
+
     def __init__(self, request, message, status_code, time):
         self.request = request
         self.message = message
         self.status_code = status_code
         self.time = time
         super().__init__(
-            f'{message.capitalize()} (ErrCode: {status_code}) (ErrTime: {time})'
-            f'.\nRequest → {request}.'
+            f"{message.capitalize()} (ErrCode: {status_code}) (ErrTime: {time})"
+            f".\nRequest → {request}."
         )
 
 
@@ -29,12 +42,13 @@ class InvalidRequestError(Exception):
         status_code -- The code number returned.
         time -- The time of the error.
     """
+
     def __init__(self, request, message, status_code, time):
         self.request = request
         self.message = message
         self.status_code = status_code
         self.time = time
         super().__init__(
-            f'{message} (ErrCode: {status_code}) (ErrTime: {time})'
-            f'.\nRequest → {request}.'
+            f"{message} (ErrCode: {status_code}) (ErrTime: {time})"
+            f".\nRequest → {request}."
         )
