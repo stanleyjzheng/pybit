@@ -88,7 +88,7 @@ class TradeHTTP(_V5HTTPManager):
             auth=True,
         )
 
-    def cancel_all_rders(self, **kwargs):
+    def cancel_all_orders(self, **kwargs):
         """Cancel all open orders
 
         Required args:

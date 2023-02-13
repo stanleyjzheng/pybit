@@ -98,7 +98,6 @@ class AccountHTTP(_V5HTTPManager):
         Additional information:
             https://bybit-exchange.github.io/docs/v5/account/account-info
         """
-        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         print(f"{self.endpoint}{Account.GET_ACCOUNT_INFO}")
         return self._submit_request(
             method="GET",
