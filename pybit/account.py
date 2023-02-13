@@ -2,7 +2,7 @@ from enum import Enum
 
 
 class Account(str, Enum):
-    GET_WALLET_BALANCE = "/v5/position/list"
+    GET_WALLET_BALANCE = "/v5/account/wallet-balance"
     UPGRADE_TO_UNIFIED_ACCOUNT = "/v5/position/set-leverage"
     GET_BORROW_HISTORY = "/v5/position/switch-isolated"
     GET_COLLATERAL_INFO = "/v5/position/set-tpsl-mode"
