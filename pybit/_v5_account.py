@@ -89,6 +89,23 @@ class AccountHTTP(_V5HTTPManager):
             auth=True,
         )
 
+    def get_fee_rates(self, **kwargs):
+        """Get the trading fee rate of derivatives.
+
+        Returns:
+            Request results as dictionary.
+
+        Additional information:
+            https://bybit-exchange.github.io/docs/v5/account/fee-rate
+        """
+        print(f"{self.endpoint}{Account.GET_ACCOUNT_INFO}")
+        return self._submit_request(
+            method="GET",
+            path=f"{self.endpoint}{Account.GET_FEE_RATE}",
+            query=kwargs,
+            auth=True,
+        )
+
     def get_account_info(self, **kwargs):
         """Query the margin mode configuration of the account.
 
