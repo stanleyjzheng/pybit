@@ -18,10 +18,17 @@ try:
 except ImportError:
     from json.decoder import JSONDecodeError
 
+HTTP_URL = "https://{SUBDOMAIN}.{DOMAIN}.com/"
+SUBDOMAIN_TESTNET = "api-testnet"
+SUBDOMAIN_MAINNET = "api"
+DOMAIN_MAIN = "bybit"
+DOMAIN_ALT = "bytick"
+
 
 @dataclass
 class _V5HTTPManager:
-    endpoint: str = field(default="https://api.bybit.com")
+    testnet: bool = field(default=False)
+    domain: str = field(default="bybit")
     api_key: str = field(default=None)
     api_secret: str = field(default=None)
     logging_level: logging = field(default=logging.INFO)
@@ -43,6 +50,11 @@ class _V5HTTPManager:
     record_request_time: bool = field(default=False)
 
     def __post_init__(self):
+        subdomain = SUBDOMAIN_TESTNET if self.testnet else SUBDOMAIN_MAINNET
+        domain = DOMAIN_MAIN if not self.domain else self.domain
+        url = HTTP_URL.format(SUBDOMAIN=subdomain, DOMAIN=domain)
+        self.endpoint = url
+
         if not self.ignore_codes:
             self.ignore_codes = set()
         if not self.retry_codes:
