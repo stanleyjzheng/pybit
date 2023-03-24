@@ -38,8 +38,8 @@ class AssetHTTP(_V5HTTPManager):
             auth=True,
         )
 
-    def get_usdc_peretual_settlement(self, **kwargs):
-        """Query session settlement records of USDC perpetual
+    def get_usdc_contract_settlement(self, **kwargs):
+        """Query session settlement records of USDC perpetual and futures
 
         Required args:
             category (string): Product type. linear
@@ -52,7 +52,7 @@ class AssetHTTP(_V5HTTPManager):
         """
         return self._submit_request(
             method="GET",
-            path=f"{self.endpoint}{Asset.GET_USDC_PERPETUAL_SETTLEMENT}",
+            path=f"{self.endpoint}{Asset.GET_USDC_CONTRACT_SETTLEMENT}",
             query=kwargs,
             auth=True,
         )
@@ -191,7 +191,7 @@ class AssetHTTP(_V5HTTPManager):
             auth=True,
         )
 
-    def enable_universal_transfer_fro_sub_uid(self, **kwargs):
+    def enable_universal_transfer_for_sub_uid(self, **kwargs):
         """Transfer between sub-sub or main-sub
 
         Required args:
@@ -267,7 +267,7 @@ class AssetHTTP(_V5HTTPManager):
             auth=True,
         )
 
-    def get_deposit_record(self, **kwargs):
+    def get_deposit_records(self, **kwargs):
         """Query deposit records.
 
         Returns:
@@ -278,12 +278,12 @@ class AssetHTTP(_V5HTTPManager):
         """
         return self._submit_request(
             method="GET",
-            path=f"{self.endpoint}{Asset.GET_DEPOSIT_RECORD}",
+            path=f"{self.endpoint}{Asset.GET_DEPOSIT_RECORDS}",
             query=kwargs,
             auth=True,
         )
 
-    def get_sub_account_deposit_records(self, **kwargs):
+    def get_sub_deposit_records(self, **kwargs):
         """Query subaccount's deposit records by MAIN UID's API key.
 
         Required args:
@@ -374,7 +374,7 @@ class AssetHTTP(_V5HTTPManager):
         )
 
     def withdraw(self, **kwargs):
-        """Withdraw assets from the SPOT account. You can make an off-chain transfer if the target wallet address is from Bybit. This means that no blockchain fee will be charged.
+        """Withdraw assets from your Bybit account. You can make an off-chain transfer if the target wallet address is from Bybit. This means that no blockchain fee will be charged.
 
         Required args:
             coin (string): Coin

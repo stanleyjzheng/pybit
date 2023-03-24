@@ -3,7 +3,7 @@ from .spot_leverage_token import SpotLeverageToken
 
 
 class SpotLeverageHTTP(_V5HTTPManager):
-    def get_leverage_token_info(self, **kwargs):
+    def get_leveraged_token_info(self, **kwargs):
         """Query leverage token information
 
         Returns:
@@ -14,7 +14,7 @@ class SpotLeverageHTTP(_V5HTTPManager):
         """
         return self._submit_request(
             method="GET",
-            path=f"{self.endpoint}{SpotLeverageToken.GET_LEVERAGE_TOKEN_INFO}",
+            path=f"{self.endpoint}{SpotLeverageToken.GET_LEVERAGED_TOKEN_INFO}",
             query=kwargs,
         )
 
@@ -36,7 +36,7 @@ class SpotLeverageHTTP(_V5HTTPManager):
             query=kwargs,
         )
 
-    def purchase_leverage_token(self, **kwargs):
+    def purchase_leveraged_token(self, **kwargs):
         """Purchase levearge token
 
         Required args:
@@ -56,7 +56,7 @@ class SpotLeverageHTTP(_V5HTTPManager):
             auth=True,
         )
 
-    def redeem_leverage_token(self, **kwargs):
+    def redeem_leveraged_token(self, **kwargs):
         """Redeem leverage token
 
         Required args:
@@ -76,7 +76,7 @@ class SpotLeverageHTTP(_V5HTTPManager):
             auth=True,
         )
 
-    def get_purchase_redeem_records(self, **kwargs):
+    def get_purchase_redemption_records(self, **kwargs):
         """Get purchase or redeem history
 
         Required args:
@@ -89,7 +89,7 @@ class SpotLeverageHTTP(_V5HTTPManager):
         """
         return self._submit_request(
             method="GET",
-            path=f"{self.endpoint}{SpotLeverageToken.GET_PURCHASE_REDEEM_RECORDS}",
+            path=f"{self.endpoint}{SpotLeverageToken.GET_PURCHASE_REDEMPTION_RECORDS}",
             query=kwargs,
             auth=True,
         )

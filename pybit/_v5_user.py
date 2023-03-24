@@ -3,7 +3,7 @@ from .user import User
 
 
 class UserHTTP(_V5HTTPManager):
-    def creat_sub_uid(self, **kwargs):
+    def create_sub_uid(self, **kwargs):
         """Create a new sub user id. Use master user's api key only.
 
         Required args:
@@ -23,7 +23,7 @@ class UserHTTP(_V5HTTPManager):
             auth=True,
         )
 
-    def creat_sub_api_key(self, **kwargs):
+    def create_sub_api_key(self, **kwargs):
         """To create new API key for those newly created sub UID. Use master user's api key only.
 
         Required args:
@@ -60,7 +60,7 @@ class UserHTTP(_V5HTTPManager):
             auth=True,
         )
 
-    def froze_sub_uid(self, **kwargs):
+    def freeze_sub_uid(self, **kwargs):
         """Froze sub uid. Use master user's api key only.
 
         Required args:
@@ -75,7 +75,7 @@ class UserHTTP(_V5HTTPManager):
         """
         return self._submit_request(
             method="POST",
-            path=f"{self.endpoint}{User.FROZE_SUB_UID}",
+            path=f"{self.endpoint}{User.FREEZE_SUB_UID}",
             query=kwargs,
             auth=True,
         )

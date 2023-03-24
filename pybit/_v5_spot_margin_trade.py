@@ -4,7 +4,7 @@ from .spot_margin_trade import SpotMarginTrade
 
 class SpotMarginTradeHTTP(_V5HTTPManager):
     def spot_margin_trade_toggle_margin_trade(self, **kwargs):
-        """Turn spot margin trade on / off.
+        """UTA only. Turn spot margin trade on / off.
 
         Required args:
             spotMarginMode (string): 1: on, 0: off
@@ -23,7 +23,7 @@ class SpotMarginTradeHTTP(_V5HTTPManager):
         )
 
     def spot_margin_trade_set_leverage(self, **kwargs):
-        """Set the user's maximum leverage in spot cross margin
+        """UTA only. Set the user's maximum leverage in spot cross margin
 
         Required args:
             leverage (string): Leverage. [2, 5].

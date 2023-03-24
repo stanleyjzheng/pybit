@@ -21,7 +21,7 @@ class PositionHTTP(_V5HTTPManager):
         """
         return self._submit_request(
             method="GET",
-            path=f"{self.endpoint}{Position.GET_POSITION_INFO}",
+            path=f"{self.endpoint}{Position.GET_POSITIONS}",
             query=kwargs,
             auth=True,
         )
@@ -196,12 +196,12 @@ class PositionHTTP(_V5HTTPManager):
         """
         return self._submit_request(
             method="POST",
-            path=f"{self.endpoint}{Position.SET_AUDO_ADD_MARGIN}",
+            path=f"{self.endpoint}{Position.SET_AUTO_ADD_MARGIN}",
             query=kwargs,
             auth=True,
         )
 
-    def get_half_year_executions(self, **kwargs):
+    def get_executions(self, **kwargs):
         """Query users' execution records, sorted by execTime in descending order
 
         Required args:
@@ -219,7 +219,7 @@ class PositionHTTP(_V5HTTPManager):
         """
         return self._submit_request(
             method="GET",
-            path=f"{self.endpoint}{Position.GET_EXECUTION}",
+            path=f"{self.endpoint}{Position.GET_EXECUTIONS}",
             query=kwargs,
             auth=True,
         )
