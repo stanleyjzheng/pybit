@@ -15,15 +15,15 @@ from ._v5_user import UserHTTP
 from ._websocket_stream import _V5WebSocketManager
 
 
-WSS_NAME = "Pybit_v5_WS"
+WSS_NAME = "Unified V5"
 PRIVATE_WSS = "wss://{SUBDOMAIN}.{DOMAIN}.com/v5/private"
-PUBLIC_SPOT = "wss://{SUBDOMAIN}.{DOMAIN}.com/v5/public"
+PUBLIC_WSS = "wss://{SUBDOMAIN}.{DOMAIN}.com/v5/public/{CHANNEL_TYPE}"
 AVAILABLE_CHANNEL_TYPES = [
-    "private",
-    "spot",
-    "linear",
     "inverse",
+    "linear",
+    "spot",
     "option",
+    "private",
 ]
 
 
@@ -43,10 +43,16 @@ class HTTP(
 
 
 class WebSocket(_V5WebSocketManager):
-    def _validate_topic_match(self):
+    def _validate_public_topic(self):
+        if "/v5/public" not in self.WS_URL:
+            raise TopicMismatchError(
+                "Requested topic does not match channel_type"
+            )
+
+    def _validate_private_topic(self):
         if not self.WS_URL.endswith("/private"):
             raise TopicMismatchError(
-                "Requested topic does not match channel type"
+                "Requested topic does not match channel_type"
             )
 
     def __init__(
@@ -59,16 +65,20 @@ class WebSocket(_V5WebSocketManager):
             raise InvalidChannelTypeError(
                 f"Channel type is not correct. Available: {AVAILABLE_CHANNEL_TYPES}"
             )
-        self.WS_URL = f"{PUBLIC_SPOT}/{channel_type}"
 
         if channel_type == "private":
             self.WS_URL = PRIVATE_WSS
+        else:
+            self.WS_URL = PUBLIC_WSS.replace("{CHANNEL_TYPE}", channel_type)
+            # Do not pass keys and attempt authentication on a public connection
+            self.api_key = None
+            self.api_secret = None
 
         if (
-            self.api_key == None or self.api_secret == None
+            self.api_key is None or self.api_secret is None
         ) and channel_type == "private":
             raise UnauthorizedExceptionError(
-                "API_KEY or API_SECRT is not set. They both are needed in order to access private topics"
+                "API_KEY or API_SECRET is not set. They both are needed in order to access private topics"
             )
 
         self._connect(self.WS_URL)
@@ -83,7 +93,7 @@ class WebSocket(_V5WebSocketManager):
         Additional information:
             https://bybit-exchange.github.io/docs/v5/websocket/private/position
         """
-        self._validate_topic_match()
+        self._validate_private_topic()
         topic = "position"
         self.subscribe(topic, callback)
 
@@ -95,7 +105,7 @@ class WebSocket(_V5WebSocketManager):
         Additional information:
             https://bybit-exchange.github.io/docs/v5/websocket/private/order
         """
-        self._validate_topic_match()
+        self._validate_private_topic()
         topic = "order"
         self.subscribe(topic, callback)
 
@@ -107,7 +117,7 @@ class WebSocket(_V5WebSocketManager):
         Additional information:
             https://bybit-exchange.github.io/docs/v5/websocket/private/execution
         """
-        self._validate_topic_match()
+        self._validate_private_topic()
         topic = "execution"
         self.subscribe(topic, callback)
 
@@ -119,7 +129,7 @@ class WebSocket(_V5WebSocketManager):
         Additional information:
             https://bybit-exchange.github.io/docs/v5/websocket/private/wallet
         """
-        self._validate_topic_match()
+        self._validate_private_topic()
         topic = "wallet"
         self.subscribe(topic, callback)
 
@@ -131,7 +141,7 @@ class WebSocket(_V5WebSocketManager):
         Additional information:
             https://bybit-exchange.github.io/docs/v5/websocket/private/greek
         """
-        self._validate_topic_match()
+        self._validate_private_topic()
         topic = "greeks"
         self.subscribe(topic, callback)
 
@@ -162,6 +172,7 @@ class WebSocket(_V5WebSocketManager):
         Additional information:
             https://bybit-exchange.github.io/docs/v5/websocket/public/orderbook
         """
+        self._validate_public_topic()
         topic = f"orderbook.{depth}.{symbol}"
         self.subscribe(topic, callback)
 
@@ -178,6 +189,7 @@ class WebSocket(_V5WebSocketManager):
          Additional information:
             https://bybit-exchange.github.io/docs/v5/websocket/public/trade
         """
+        self._validate_public_topic()
         topic = f"publicTrade.{symbol}"
         self.subscribe(topic, callback)
 
@@ -192,6 +204,7 @@ class WebSocket(_V5WebSocketManager):
          Additional information:
             https://bybit-exchange.github.io/docs/v5/websocket/public/ticker
         """
+        self._validate_public_topic()
         topic = f"ticker.{symbol}"
         self.subscribe(topic, callback)
 
@@ -207,6 +220,7 @@ class WebSocket(_V5WebSocketManager):
          Additional information:
             https://bybit-exchange.github.io/docs/v5/websocket/public/kline
         """
+        self._validate_public_topic()
         topic = f"kline.{interval}.{symbol}"
         self.subscribe(topic, callback)
 
@@ -221,6 +235,7 @@ class WebSocket(_V5WebSocketManager):
          Additional information:
             https://bybit-exchange.github.io/docs/v5/websocket/public/kline
         """
+        self._validate_public_topic()
         topic = f"liquidation.{symbol}"
         self.subscribe(topic, callback)
 
@@ -236,6 +251,7 @@ class WebSocket(_V5WebSocketManager):
          Additional information:
             https://bybit-exchange.github.io/docs/v5/websocket/public/etp-kline
         """
+        self._validate_public_topic()
         topic = f"kline_lt.{interval}.{symbol}"
         self.subscribe(topic, callback)
 
@@ -250,6 +266,7 @@ class WebSocket(_V5WebSocketManager):
          Additional information:
             https://bybit-exchange.github.io/docs/v5/websocket/public/etp-ticker
         """
+        self._validate_public_topic()
         topic = f"tickers_lt.{symbol}"
         self.subscribe(topic, callback)
 
@@ -264,5 +281,6 @@ class WebSocket(_V5WebSocketManager):
          Additional information:
             https://bybit-exchange.github.io/docs/v5/websocket/public/etp-nav
         """
+        self._validate_public_topic()
         topic = f"lt.{symbol}"
         self.subscribe(topic, callback)
