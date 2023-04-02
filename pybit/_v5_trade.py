@@ -4,7 +4,7 @@ from .trade import Trade
 
 class TradeHTTP(_V5HTTPManager):
     def place_order(self, **kwargs):
-        """This methd supports to create the order for spot, spot margin, linear perpetual, inverse futures and options.
+        """This method supports to create the order for spot, spot margin, linear perpetual, inverse futures and options.
 
         Required args:
             category (string): Product type Unified account: spot, linear, optionNormal account: linear, inverse. Please note that category is not involved with business logic

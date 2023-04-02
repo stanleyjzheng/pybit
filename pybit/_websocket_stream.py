@@ -472,7 +472,6 @@ class _V5WebSocketManager(_WebSocketManager):
         if topic_string in self.private_topics:
             return topic_string
 
-
     def _check_callback_directory(self, topics):
         for topic in topics:
             if topic in self.callback_directory:

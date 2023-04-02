@@ -18,7 +18,7 @@ try:
 except ImportError:
     from json.decoder import JSONDecodeError
 
-HTTP_URL = "https://{SUBDOMAIN}.{DOMAIN}.com/"
+HTTP_URL = "https://{SUBDOMAIN}.{DOMAIN}.com"
 SUBDOMAIN_TESTNET = "api-testnet"
 SUBDOMAIN_MAINNET = "api"
 DOMAIN_MAIN = "bybit"
