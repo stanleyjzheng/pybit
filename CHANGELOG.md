@@ -56,28 +56,28 @@ Future modules will be removed as Bybit's APIs are further unified so that they 
 
 This is a pre-release, as indicated by the `rc` (release candidate) in the version number. Future versions may have breaking changes. An imminent major version of the Bybit API will introduce major changes before these v3 APIs make it to the production version.
 
-## Added
+### Added
 - Bybit's main v3 HTTP and WebSocket APIs:
   - `contract` – inverse perpetuals, inverse futures, USDT perpetuals, and USDC options
   - `unified_margin` – USDT perpetuals and USDC options
 
-## Modified
+### Modified
 - `spot` to use v3 HTTP API and WebSocket APIs
 - `account_asset` to use v3 HTTP API
 
-## Removed
+### Removed
 - `usdt_perpetual` because it is now accessible via `contract` and `unified_margin`
 
 
 ## [2.4.1rc0] - 2022-10-07
-## Modified
+### Modified
 - `is_connected()` and the WebSocket reconnection logic. 
 
 
 ## [2.4.1] - 2022-10-07
 - See below release candidates for further changes.
 
-## Fixed
+### Fixed
 - Wrong endpoint path in `usdc_perpetual.py`
 - Wrong endpoint path in `account_asset.py`
 
