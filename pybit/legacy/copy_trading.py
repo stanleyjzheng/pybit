@@ -1,7 +1,7 @@
-from pybit._http_manager import _V3HTTPManager
-from pybit._websocket_stream import _FuturesWebSocketManager
-from pybit._websocket_stream import COPY_TRADING
-from pybit import _helpers
+from ._http_manager import _V3HTTPManager
+from ._websocket_stream import _FuturesWebSocketManager
+from ._websocket_stream import COPY_TRADING
+from . import _helpers
 
 
 ws_name = COPY_TRADING

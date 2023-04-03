@@ -19,6 +19,7 @@ DOMAIN_ALT = "bytick"
 
 USDC_PERPETUAL = "USDC Perp"
 USDC_OPTIONS = "USDC Options"
+COPY_TRADING = "Copy Trading"
 
 
 class _WebSocketManager:
