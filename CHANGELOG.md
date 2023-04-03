@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.0.0] - 2023-04-03
+This version upgrades pybit to Bybit's [version 5 (v5) APIs](https://bybit-exchange.github.io/docs/v5/intro). It supports both [Unified Trading Accounts](https://www.bybit.com/en-US/help-center/s/article/Introduction-to-Bybit-Unified-Trading-Account) (UTA) and non-UTA accounts. Bybit is not expected to develop any more major API versions in the future, so Bybit's v5 API (and subsequently, pybit's 5.0.0) is expected to be supported in the long-term.
+
+See the [examples folder](https://github.com/bybit-exchange/pybit/tree/master/examples) for examples on how to interact with the latest modules.
+
+### Added
+- Bybit's v5 HTTP and WebSocket APIs in the `unified_trading` module. See what markets All-In-One V5 API supports in the [upgrade guide](https://bybit-exchange.github.io/docs/v5/upgrade-guide).
+
+### Modified
+- Non-v5 modules like `copy_trading`, `usdc_options`, and `usdc_perpetuals` to continue to work from a `legacy` subpackage. Import like so: `from pybit.legacy.copy_trading import HTTP
+`. These modules are maintained because they are currently not supported by the v5 API; see the [upgrade guide](https://bybit-exchange.github.io/docs/v5/upgrade-guide).
+
+### Removed
+- Various legacy modules which have been superseded by the v5 API via the `unified_trading` module
+
+### Fixed
+- Tests for V5 endpoints
+
 
 ## [3.0.0rc5] - 2023-02-02
 ### Added
@@ -49,28 +67,28 @@ Future modules will be removed as Bybit's APIs are further unified so that they 
 
 This is a pre-release, as indicated by the `rc` (release candidate) in the version number. Future versions may have breaking changes. An imminent major version of the Bybit API will introduce major changes before these v3 APIs make it to the production version.
 
-## Added
+### Added
 - Bybit's main v3 HTTP and WebSocket APIs:
   - `contract` – inverse perpetuals, inverse futures, USDT perpetuals, and USDC options
   - `unified_margin` – USDT perpetuals and USDC options
 
-## Modified
+### Modified
 - `spot` to use v3 HTTP API and WebSocket APIs
 - `account_asset` to use v3 HTTP API
 
-## Removed
+### Removed
 - `usdt_perpetual` because it is now accessible via `contract` and `unified_margin`
 
 
 ## [2.4.1rc0] - 2022-10-07
-## Modified
+### Modified
 - `is_connected()` and the WebSocket reconnection logic. 
 
 
 ## [2.4.1] - 2022-10-07
 - See below release candidates for further changes.
 
-## Fixed
+### Fixed
 - Wrong endpoint path in `usdc_perpetual.py`
 - Wrong endpoint path in `account_asset.py`
 
