@@ -2,7 +2,7 @@ import unittest, time
 from pybit.exceptions import InvalidChannelTypeError, TopicMismatchError
 from pybit.unified_trading import HTTP, WebSocket
 
-# session uses ByBit's mainnet endpoint
+# session uses Bybit's mainnet endpoint
 session = HTTP()
 ws = WebSocket(
     channel_type="spot",

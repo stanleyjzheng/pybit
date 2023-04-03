@@ -3,11 +3,11 @@ from pybit.unified_trading import HTTP
 
 BYBIT_API_KEY = "<account_api_key>"
 BYBIT_API_SECRET = "<account_api_secret>"
-BYBIT_TESTNET_ENPOINT = "https://api-testnet.bybit.com"
-BYBIT_ENPOINT = "https://api.bybit.com"
+BYBIT_TESTNET_ENDPOINT = "https://api-testnet.bybit.com"
+BYBIT_ENDPOINT = "https://api.bybit.com"
 
 
-class ByBitWrapper:
+class BybitWrapper:
     def __init__(
         self,
         api_key: str = None,
@@ -77,10 +77,10 @@ class ByBitWrapper:
 
 # Initialize wrapper instance
 
-wrapper = ByBitWrapper(
+wrapper = BybitWrapper(
     api_key=BYBIT_API_KEY,
     api_secret=BYBIT_API_SECRET,
-    endpoint=BYBIT_TESTNET_ENPOINT,
+    endpoint=BYBIT_TESTNET_ENDPOINT,
 )
 
 # Actual usage
