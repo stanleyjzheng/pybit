@@ -44,37 +44,35 @@ from pybit.unified_trading import HTTP
 Create an HTTP session and connect via WebSocket for Inverse on mainnet:
 ```python
 session = HTTP(
-    endpoint='https://api.bybit.com', 
-    api_key='...',
-    api_secret='...'
+    testnet=False,
+    api_key="...",
+    api_secret="...",
 )
 ```
 Information can be sent to, or retrieved from, the Bybit APIs:
 
 ```python
-# Get orderbook.
-session.orderbook(symbol='BTCUSD')
+# Get the orderbook of the USDT Perpetual, BTCUSDT
+session.get_orderbook(category="linear", symbol="BTCUSDT")
 
-# Create five long orders.
+# Create five long USDC Options orders.
+# (Currently, only USDC Options support sending orders in bulk.)
 payload = {"category": "option"}
 orders = [{
-  "symbol": "ETHUSDT",
+  "symbol": "BTC-30JUN23-20000-C",
   "side": "Buy",
   "orderType": "Limit",
   "qty": "0.1",
   "price": i,
-} for i in [1700, 1900, 2200, 2400, 2450]]
+} for i in [15000, 15500, 16000, 16500, 16600]]
 
 payload["request"] = orders
 # Submit the orders in bulk.
 session.place_batch_order(payload)
-
 ```
 Check out the example python files or the list of endpoints below for more information on available
 endpoints and methods. Usage examples on the `HTTP` methods can
-be found at:
-- [Session examples](/examples/direct_session.py)
-- [Wrapper examples](/examples/wrapper_class.py)
+be found at in the [examples folder](https://github.com/bybit-exchange/pybit/tree/master/examples).
 
 
 ## Contact
