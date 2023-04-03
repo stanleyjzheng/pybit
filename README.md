@@ -72,7 +72,7 @@ session.place_batch_order(payload)
 ```
 Check out the example python files or the list of endpoints below for more information on available
 endpoints and methods. Usage examples on the `HTTP` methods can
-be found at in the [examples folder](https://github.com/bybit-exchange/pybit/tree/master/examples).
+be found in the [examples folder](https://github.com/bybit-exchange/pybit/tree/master/examples).
 
 
 ## Contact
