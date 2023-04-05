@@ -5,7 +5,6 @@
 
 [![Build Status](https://img.shields.io/pypi/pyversions/pybit)](https://www.python.org/downloads/)
 [![Build Status](https://img.shields.io/pypi/v/pybit)](https://pypi.org/project/pybit/)
-[![Build Status](https://travis-ci.org/bybit-exchange/pybit.svg?branch=master)](https://travis-ci.org/bybit-exchange/pybit)
 ![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)
 
 Official Python3 API connector for Bybit's HTTP and WebSockets APIs.
