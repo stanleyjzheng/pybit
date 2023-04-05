@@ -5,7 +5,7 @@
 
 [![Build Status](https://img.shields.io/pypi/pyversions/pybit)](https://www.python.org/downloads/)
 [![Build Status](https://img.shields.io/pypi/v/pybit)](https://pypi.org/project/pybit/)
-[![Build Status](https://travis-ci.org/verata-veritatis/pybit.svg?branch=master)](https://travis-ci.org/verata-veritatis/pybit)
+[![Build Status](https://travis-ci.org/bybit-exchange/pybit.svg?branch=master)](https://travis-ci.org/bybit-exchange/pybit)
 ![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)
 
 Official Python3 API connector for Bybit's HTTP and WebSockets APIs.
@@ -86,17 +86,19 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 <table>
-  <tbody>
-    <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/verata-veritatis"><img src="https://avatars0.githubusercontent.com/u/9677388?v=4?s=100" width="100px;" alt="verata-veritatis"/><br /><sub><b>verata-veritatis</b></sub></a><br /><a href="https://github.com/bybit-exchange/pybit/commits?author=verata-veritatis" title="Code">💻</a> <a href="https://github.com/bybit-exchange/pybit/commits?author=verata-veritatis" title="Documentation">📖</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/APF20"><img src="https://avatars.githubusercontent.com/u/74583612?v=4?s=100" width="100px;" alt="APF20"/><br /><sub><b>APF20</b></sub></a><br /><a href="https://github.com/bybit-exchange/pybit/commits?author=APF20" title="Code">💻</a></td>
-    </tr>
-  </tbody>
+  <tr>
+    <td align="center"><a href="https://github.com/dextertd"><img src="https://avatars.githubusercontent.com/u/54495183?v=4" width="100px;" alt=""/><br /><sub><b>dextertd</b></sub></a><br /><a href="https://github.com/bybit-exchange/pybit/commits?author=dextertd" title="Code">💻</a> <a href="https://github.com/bybit-exchange/pybit/commits?author=dextertd" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/ervuks"><img src="https://avatars.githubusercontent.com/u/17198438?v=4" width="100px;" alt=""/><br /><sub><b>ervuks</b></sub></a><br /><a href="https://github.com/bybit-exchange/pybit/commits?author=ervuks" title="Code">💻</a> <a href="https://github.com/bybit-exchange/pybit/commits?author=ervuks" title="Documentation">📖</a></td></td>
+    <td align="center"><a href="https://github.com/verata-veritatis"><img src="https://avatars0.githubusercontent.com/u/9677388?v=4" width="100px;" alt=""/><br /><sub><b>verata-veritatis</b></sub></a><br /><a href="https://github.com/bybit-exchange/pybit/commits?author=verata-veritatis" title="Code">💻</a> <a href="https://github.com/bybit-exchange/pybit/commits?author=verata-veritatis" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/APF20"><img src="https://avatars0.githubusercontent.com/u/74583612?v=4" width="100px;" alt=""/><br /><sub><b>APF20</b></sub></a><br /><a href="https://github.com/bybit-exchange/pybit/commits?author=APF20" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/cameronhh"><img src="https://avatars0.githubusercontent.com/u/30434979?v=4" width="100px;" alt=""/><br /><sub><b>Cameron Harder-Hutton</b></sub></a><br /><a href="https://github.com/bybit-exchange/pybit/commits?author=cameronhh" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/tomcru"><img src="https://avatars0.githubusercontent.com/u/35841182?v=4" width="100px;" alt=""/><br /><sub><b>Tom Rumpf</b></sub></a><br /><a href="https://github.com/bybit-exchange/pybit/commits?author=tomcru" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/tconley"><img src="https://avatars1.githubusercontent.com/u/1893207?v=4" width="100px;" alt=""/><br /><sub><b>Todd Conley</b></sub></a><br /><a href="https://github.com/tconley/pybit/commits?author=tconley" title="Ideas">🤔</a></td>
+  </tr>
 </table>
 
-<!-- markdownlint-restore -->
+<!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
-
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
