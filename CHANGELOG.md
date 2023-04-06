@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.0] - 2023-04-06
+### Added
+- HTTP endpoints to the `copy_trading` module
+
+### Modified
+- Docstrings in the `copy_trading` module to make it easier to find the API documentation for reference
+- Example files
+
+### Fixed
+- `ticker_stream` method in the `unified_trading` module, which was subscribing to the wrong WebSocket topic
+
+
 ## [5.0.0] - 2023-04-03
 This version upgrades pybit to Bybit's [version 5 (v5) APIs](https://bybit-exchange.github.io/docs/v5/intro). It supports both [Unified Trading Accounts](https://www.bybit.com/en-US/help-center/s/article/Introduction-to-Bybit-Unified-Trading-Account) (UTA) and non-UTA accounts. Bybit is not expected to develop any more major API versions in the future, so Bybit's v5 API (and subsequently, pybit's 5.0.0) is expected to be supported in the long-term.
 
