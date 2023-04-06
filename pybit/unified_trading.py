@@ -205,7 +205,7 @@ class WebSocket(_V5WebSocketManager):
             https://bybit-exchange.github.io/docs/v5/websocket/public/ticker
         """
         self._validate_public_topic()
-        topic = f"ticker.{symbol}"
+        topic = f"tickers.{symbol}"
         self.subscribe(topic, callback)
 
     def kline_stream(self, interval: int, symbol: str, callback):
