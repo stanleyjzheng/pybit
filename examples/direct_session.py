@@ -1,10 +1,9 @@
 from pybit.unified_trading import HTTP
 
 
-BYBIT_API_KEY = "<account_api_key>"
-BYBIT_API_SECRET = "<account_api_secret>"
-BYBIT_TESTNET_ENDPOINT = "https://api-testnet.bybit.com"
-BYBIT_ENDPOINT = "https://api.bybit.com"
+BYBIT_API_KEY = "api_key"
+BYBIT_API_SECRET = "api_secret"
+TESTNET = True  # True means your API keys were generated on testnet.bybit.com
 
 
 # Create direct HTTP session instance
@@ -12,7 +11,7 @@ BYBIT_ENDPOINT = "https://api.bybit.com"
 session = HTTP(
     api_key=BYBIT_API_KEY,
     api_secret=BYBIT_API_SECRET,
-    endpoint=BYBIT_TESTNET_ENDPOINT,
+    testnet=TESTNET,
 )
 
 # Place order
@@ -47,12 +46,12 @@ for order in orders:
 # Batch cancel orders
 
 orders_to_cancel = [
-    {"category": "linear", "symbol": o["symbol"], "orderId": o["orderId"]}
+    {"category": "option", "symbol": o["symbol"], "orderId": o["orderId"]}
     for o in response["result"]["list"]
-    if o["orderStatus"] == "Untriggered"
+    if o["orderStatus"] == "New"
 ]
 
 response = session.cancel_batch_order(
-    category="linear",
+    category="option",
     request=orders_to_cancel,
 )

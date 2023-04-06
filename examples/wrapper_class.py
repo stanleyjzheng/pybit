@@ -1,10 +1,9 @@
 from pybit.unified_trading import HTTP
 
 
-BYBIT_API_KEY = "<account_api_key>"
-BYBIT_API_SECRET = "<account_api_secret>"
-BYBIT_TESTNET_ENDPOINT = "https://api-testnet.bybit.com"
-BYBIT_ENDPOINT = "https://api.bybit.com"
+BYBIT_API_KEY = "api_key"
+BYBIT_API_SECRET = "api_secret"
+TESTNET = True  # True means your API keys were generated on testnet.bybit.com
 
 
 class BybitWrapper:
@@ -12,12 +11,12 @@ class BybitWrapper:
         self,
         api_key: str = None,
         api_secret: str = None,
-        endpoint: str = None,
+        testnet: bool = None,
     ):
         self.instance = HTTP(
             api_key=api_key,
             api_secret=api_secret,
-            endpoint=endpoint,
+            testnet=testnet,
             log_requests=True,
         )
 
@@ -80,7 +79,7 @@ class BybitWrapper:
 wrapper = BybitWrapper(
     api_key=BYBIT_API_KEY,
     api_secret=BYBIT_API_SECRET,
-    endpoint=BYBIT_TESTNET_ENDPOINT,
+    testnet=TESTNET,
 )
 
 # Actual usage
