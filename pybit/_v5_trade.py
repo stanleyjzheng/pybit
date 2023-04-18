@@ -237,7 +237,7 @@ class TradeHTTP(_V5HTTPManager):
             https://bybit-exchange.github.io/docs/v5/order/dcp
         """
         return self._submit_request(
-            method="GET",
+            method="POST",
             path=f"{self.endpoint}{Trade.SET_DCP}",
             query=kwargs,
             auth=True,

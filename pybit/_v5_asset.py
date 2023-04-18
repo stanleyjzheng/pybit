@@ -267,6 +267,25 @@ class AssetHTTP(_V5HTTPManager):
             auth=True,
         )
 
+    def set_deposit_account(self, **kwargs):
+        """Set auto transfer account after deposit. The same function as the setting for Deposit on web GUI
+
+        Required args:
+            accountType (string): Account type: UNIFIED,SPOT,OPTION,CONTRACT,FUND
+
+        Returns:
+            Request results as dictionary.
+
+        Additional information:
+            https://bybit-exchange.github.io/docs/v5/asset/set-deposit-acct
+        """
+        return self._submit_request(
+            method="POST",
+            path=f"{self.endpoint}{Asset.SET_DEPOSIT_ACCOUNT}",
+            query=kwargs,
+            auth=True,
+        )
+
     def get_deposit_records(self, **kwargs):
         """Query deposit records.
 
@@ -298,6 +317,22 @@ class AssetHTTP(_V5HTTPManager):
         return self._submit_request(
             method="GET",
             path=f"{self.endpoint}{Asset.GET_SUB_ACCOUNT_DEPOSIT_RECORDS}",
+            query=kwargs,
+            auth=True,
+        )
+
+    def get_internal_deposit_records(self, **kwargs):
+        """Query deposit records within the Bybit platform. These transactions are not on the blockchain.
+
+        Returns:
+            Request results as dictionary.
+
+        Additional information:
+            https://bybit-exchange.github.io/docs/v5/asset/internal-deposit-record
+        """
+        return self._submit_request(
+            method="GET",
+            path=f"{self.endpoint}{Asset.GET_INTERNAL_DEPOSIT_RECORDS}",
             query=kwargs,
             auth=True,
         )
@@ -369,6 +404,25 @@ class AssetHTTP(_V5HTTPManager):
         return self._submit_request(
             method="GET",
             path=f"{self.endpoint}{Asset.GET_WITHDRAWAL_RECORDS}",
+            query=kwargs,
+            auth=True,
+        )
+
+    def get_withdrawable_amount(self, **kwargs):
+        """Get withdrawable amount
+
+        Required args:
+            coin (string): Coin name
+
+        Returns:
+            Request results as dictionary.
+
+        Additional information:
+            https://bybit-exchange.github.io/docs/v5/asset/delay-amount
+        """
+        return self._submit_request(
+            method="GET",
+            path=f"{self.endpoint}{Asset.GET_WITHDRAWABLE_AMOUNT}",
             query=kwargs,
             auth=True,
         )
