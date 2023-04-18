@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 - Ensured that `legacy` submodule is packaged by `setup.py`
+- Fix non-UTA (normal account) spot margin trading endpoints
 
 
 ## [5.1.1] - 2023-04-06
