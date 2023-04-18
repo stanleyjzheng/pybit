@@ -5,9 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+
+## [5.2.0] - 2023-04-18
+### Added
+- New asset endpoints: `set_deposit_account()`, `get_internal_deposit_records()`, `get_withdrawable_amount()`
+
+### Fixed
 - Ensure that `legacy` submodule is packaged by `setup.py`
 - Fix non-UTA (normal account) spot margin trading endpoints
+- Fix wrong request method for `set_dcp()`
 
 
 ## [5.1.1] - 2023-04-06
