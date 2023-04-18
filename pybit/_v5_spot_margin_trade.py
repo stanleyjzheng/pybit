@@ -51,11 +51,11 @@ class SpotMarginTradeHTTP(_V5HTTPManager):
             Request results as dictionary.
 
         Additional information:
-            https://bybit-exchange.github.io/docs/v5/spot-margin-normal/switch-mode
+            https://bybit-exchange.github.io/docs/v5/spot-margin-normal/margin-data
         """
         return self._submit_request(
             method="GET",
-            path=f"{self.endpoint}{SpotMarginTrade.GET_MARGIN_COIN_INFO}",
+            path=f"{self.endpoint}{SpotMarginTrade.NORMAL_GET_MARGIN_COIN_INFO}",
             query=kwargs,
         )
 
@@ -70,7 +70,7 @@ class SpotMarginTradeHTTP(_V5HTTPManager):
         """
         return self._submit_request(
             method="GET",
-            path=f"{self.endpoint}{SpotMarginTrade.GET_BORROWABLE_COIN_INFO}",
+            path=f"{self.endpoint}{SpotMarginTrade.NORMAL_GET_BORROWABLE_COIN_INFO}",
             query=kwargs,
         )
 
@@ -88,7 +88,7 @@ class SpotMarginTradeHTTP(_V5HTTPManager):
         """
         return self._submit_request(
             method="GET",
-            path=f"{self.endpoint}{SpotMarginTrade.GET_INTEREST_QUOTA}",
+            path=f"{self.endpoint}{SpotMarginTrade.NORMAL_GET_INTEREST_QUOTA}",
             query=kwargs,
             auth=True,
         )
@@ -104,7 +104,7 @@ class SpotMarginTradeHTTP(_V5HTTPManager):
         """
         return self._submit_request(
             method="GET",
-            path=f"{self.endpoint}{SpotMarginTrade.GET_LOAN_ACCOUNT_INFO}",
+            path=f"{self.endpoint}{SpotMarginTrade.NORMAL_GET_LOAN_ACCOUNT_INFO}",
             query=kwargs,
             auth=True,
         )
@@ -124,7 +124,7 @@ class SpotMarginTradeHTTP(_V5HTTPManager):
         """
         return self._submit_request(
             method="POST",
-            path=f"{self.endpoint}{SpotMarginTrade.BORROW}",
+            path=f"{self.endpoint}{SpotMarginTrade.NORMAL_BORROW}",
             query=kwargs,
             auth=True,
         )
@@ -143,7 +143,7 @@ class SpotMarginTradeHTTP(_V5HTTPManager):
         """
         return self._submit_request(
             method="POST",
-            path=f"{self.endpoint}{SpotMarginTrade.REPAY}",
+            path=f"{self.endpoint}{SpotMarginTrade.NORMAL_REPAY}",
             query=kwargs,
             auth=True,
         )
@@ -159,7 +159,7 @@ class SpotMarginTradeHTTP(_V5HTTPManager):
         """
         return self._submit_request(
             method="GET",
-            path=f"{self.endpoint}{SpotMarginTrade.GET_BORROW_ORDER_DETAIL}",
+            path=f"{self.endpoint}{SpotMarginTrade.NORMAL_GET_BORROW_ORDER_DETAIL}",
             query=kwargs,
             auth=True,
         )
@@ -175,7 +175,7 @@ class SpotMarginTradeHTTP(_V5HTTPManager):
         """
         return self._submit_request(
             method="GET",
-            path=f"{self.endpoint}{SpotMarginTrade.GET_REPAYMENT_ORDER_DETAIL}",
+            path=f"{self.endpoint}{SpotMarginTrade.NORMAL_GET_REPAYMENT_ORDER_DETAIL}",
             query=kwargs,
             auth=True,
         )
@@ -194,7 +194,7 @@ class SpotMarginTradeHTTP(_V5HTTPManager):
         """
         return self._submit_request(
             method="POST",
-            path=f"{self.endpoint}{SpotMarginTrade.TOGGLE_MARGIN_TRADE}",
+            path=f"{self.endpoint}{SpotMarginTrade.NORMAL_TOGGLE_MARGIN_TRADE}",
             query=kwargs,
             auth=True,
         )
