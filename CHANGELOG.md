@@ -6,7 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
-- Ensured that `legacy` submodule is packaged by `setup.py`
+- Ensure that `legacy` submodule is packaged by `setup.py`
+- Fix non-UTA (normal account) spot margin trading endpoints
 
 
 ## [5.1.1] - 2023-04-06
