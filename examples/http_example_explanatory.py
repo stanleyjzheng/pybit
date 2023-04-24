@@ -6,10 +6,11 @@ https://bybit-exchange.github.io/docs/v5/market/kline
 # Import HTTP from the unified_trading module.
 from pybit.unified_trading import HTTP
 
-"""
-You can create an authenticated or unauthenticated HTTP session. 
-You can skip authentication by not passing any value for the key and secret.
-"""
+# Set up logging (optional)
+import logging
+logging.basicConfig(filename="pybit.log", level=logging.DEBUG,
+                    format="%(asctime)s %(levelname)s %(message)s")
+
 
 # You can create an authenticated or unauthenticated HTTP session.
 # You can skip authentication by not passing any value for the key and secret.
