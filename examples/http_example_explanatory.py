@@ -11,7 +11,9 @@ You can create an authenticated or unauthenticated HTTP session.
 You can skip authentication by not passing any value for the key and secret.
 """
 
-# Authenticated
+# You can create an authenticated or unauthenticated HTTP session.
+# You can skip authentication by not passing any value for the key and secret.
+
 session = HTTP(
     testnet=True,
     api_key="...",
