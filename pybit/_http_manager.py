@@ -48,6 +48,7 @@ class _V5HTTPManager:
     retry_delay: bool = field(default=3)
     referral_id: bool = field(default=None)
     record_request_time: bool = field(default=False)
+    return_response_headers: bool = field(default=False)
 
     def __post_init__(self):
         subdomain = SUBDOMAIN_TESTNET if self.testnet else SUBDOMAIN_MAINNET
@@ -349,7 +350,9 @@ class _V5HTTPManager:
                         f"Response headers: {s.headers}"
                     )
 
-                if self.record_request_time:
+                if self.return_response_headers:
+                    return s_json, s.elapsed, s.headers,
+                elif self.record_request_time:
                     return s_json, s.elapsed
                 else:
                     return s_json
