@@ -345,6 +345,11 @@ class _V5HTTPManager:
                         time=dt.utcnow().strftime("%H:%M:%S"),
                     )
             else:
+                if self.log_requests:
+                    self.logger.debug(
+                        f"Response headers: {s.headers}"
+                    )
+
                 if self.return_response_headers:
                     return s_json, s.elapsed, s.headers,
                 elif self.record_request_time:
