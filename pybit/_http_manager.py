@@ -186,6 +186,7 @@ class _V5HTTPManager:
                     message="Bad Request. Retries exceeded maximum.",
                     status_code=400,
                     time=dt.utcnow().strftime("%H:%M:%S"),
+                    resp_headers=None,
                 )
 
             retries_remaining = f"{retries_attempted} retries remain."
@@ -271,6 +272,7 @@ class _V5HTTPManager:
                     message=error_msg,
                     status_code=s.status_code,
                     time=dt.utcnow().strftime("%H:%M:%S"),
+                    resp_headers=s.headers,
                 )
 
             # Convert response to dictionary, or raise if requests error.
@@ -290,6 +292,7 @@ class _V5HTTPManager:
                         message="Conflict. Could not decode JSON.",
                         status_code=409,
                         time=dt.utcnow().strftime("%H:%M:%S"),
+                        resp_headers=s.headers,
                     )
 
             ret_code = "retCode"
@@ -343,6 +346,7 @@ class _V5HTTPManager:
                         message=s_json[ret_msg],
                         status_code=s_json[ret_code],
                         time=dt.utcnow().strftime("%H:%M:%S"),
+                        resp_headers=s.headers,
                     )
             else:
                 if self.log_requests:
