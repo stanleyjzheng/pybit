@@ -186,6 +186,7 @@ class _V5HTTPManager:
                     message="Bad Request. Retries exceeded maximum.",
                     status_code=400,
                     time=dt.utcnow().strftime("%H:%M:%S"),
+                    resp_headers=None,
                 )
 
             retries_remaining = f"{retries_attempted} retries remain."
@@ -271,6 +272,7 @@ class _V5HTTPManager:
                     message=error_msg,
                     status_code=s.status_code,
                     time=dt.utcnow().strftime("%H:%M:%S"),
+                    resp_headers=s.headers,
                 )
 
             # Convert response to dictionary, or raise if requests error.
@@ -290,6 +292,7 @@ class _V5HTTPManager:
                         message="Conflict. Could not decode JSON.",
                         status_code=409,
                         time=dt.utcnow().strftime("%H:%M:%S"),
+                        resp_headers=s.headers,
                     )
 
             ret_code = "retCode"
@@ -301,7 +304,7 @@ class _V5HTTPManager:
                 error_msg = f"{s_json[ret_msg]} (ErrCode: {s_json[ret_code]})"
 
                 # Set default retry delay.
-                err_delay = self.retry_delay
+                delay_time = self.retry_delay
 
                 # Retry non-fatal whitelisted error requests.
                 if s_json[ret_code] in self.retry_codes:
@@ -310,28 +313,27 @@ class _V5HTTPManager:
                         error_msg += ". Added 2.5 seconds to recv_window"
                         recv_window += 2500
 
-                    # 10006, ratelimit error; wait until rate_limit_reset_ms
-                    # and retry.
+                    # 10006, rate limit error; wait until
+                    # X-Bapi-Limit-Reset-Timestamp and retry.
                     elif s_json[ret_code] == 10006:
                         self.logger.error(
-                            f"{error_msg}. Ratelimited on current request. "
+                            f"{error_msg}. Hit the API rate limit. "
                             f"Sleeping, then trying again. Request: {path}"
                         )
 
-                        # Calculate how long we need to wait.
-                        limit_reset = s_json["rate_limit_reset_ms"] / 1000
-                        reset_str = time.strftime(
-                            "%X", time.localtime(limit_reset)
-                        )
-                        err_delay = int(limit_reset) - int(time.time())
+                        # Calculate how long we need to wait in milliseconds.
+                        limit_reset_time = int(s.headers["X-Bapi-Limit-Reset-Timestamp"])
+                        limit_reset_str = dt.fromtimestamp(limit_reset_time / 10**3).strftime(
+                            "%H:%M:%S.%f")[:-3]
+                        delay_time = (int(limit_reset_time) - _helpers.generate_timestamp()) / 10**3
                         error_msg = (
-                            f"Ratelimit will reset at {reset_str}. "
-                            f"Sleeping for {err_delay} seconds"
+                            f"API rate limit will reset at {limit_reset_str}. "
+                            f"Sleeping for {int(delay_time * 10**3)} milliseconds"
                         )
 
                     # Log the error.
                     self.logger.error(f"{error_msg}. {retries_remaining}")
-                    time.sleep(err_delay)
+                    time.sleep(delay_time)
                     continue
 
                 elif s_json[ret_code] in self.ignore_codes:
@@ -343,6 +345,7 @@ class _V5HTTPManager:
                         message=s_json[ret_msg],
                         status_code=s_json[ret_code],
                         time=dt.utcnow().strftime("%H:%M:%S"),
+                        resp_headers=s.headers,
                     )
             else:
                 if self.log_requests:
