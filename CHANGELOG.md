@@ -8,8 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 - Remove unnecessary `print` statements in two methods
-- Add extra logging when passing `log_requests=True`
-
+- Add extra logging (log response headers) when passing `log_requests=True`
+- Fix API rate limit handling
+- Add response headers to exceptions
+- Add argument `return_response_headers` to allow returning the response headers to the user
 
 ## [5.2.0] - 2023-04-18
 ### Added
