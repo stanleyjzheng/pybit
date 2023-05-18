@@ -37,11 +37,11 @@ class _V5HTTPManager:
     recv_window: bool = field(default=5000)
     force_retry: bool = field(default=False)
     retry_codes: defaultdict[dict] = field(
-        default_factory=lambda: {},
+        default_factory=dict,
         init=False,
     )
     ignore_codes: dict = field(
-        default_factory=lambda: {},
+        default_factory=dict,
         init=False,
     )
     max_retries: bool = field(default=3)
