@@ -294,15 +294,12 @@ class _V5WebSocketManager(_WebSocketManager):
             "greeks",
         ]
 
-        self.symbol_wildcard = "*"
-        self.symbol_separator = "|"
-
-    def subscribe(self, topic, callback):
-        splitted_topic = topic.split(".")
-        if len(splitted_topic) > 1:
-            symbol = [splitted_topic[-1]]
-        else:
-            symbol = []
+    def subscribe(
+            self,
+            topic: str,
+            callback,
+            symbol: (str, list) = False
+    ):
 
         def prepare_subscription_args(list_of_symbols):
             """
@@ -315,25 +312,28 @@ class _V5WebSocketManager(_WebSocketManager):
                 return [topic]
 
             topics = []
-            for symbol in list_of_symbols:
-                topics.append(topic.format(symbol))
+            for single_symbol in list_of_symbols:
+                topics.append(topic.format(symbol=single_symbol))
             return topics
+
+        if type(symbol) == str:
+            symbol = [symbol]
 
         subscription_args = prepare_subscription_args(symbol)
         self._check_callback_directory(subscription_args)
-
-        while not self.is_connected():
-            # Wait until the connection is open before subscribing.
-            time.sleep(0.1)
 
         req_id = str(uuid4())
 
         subscription_message = json.dumps(
             {"op": "subscribe", "req_id": req_id, "args": subscription_args}
         )
+        while not self.is_connected():
+            # Wait until the connection is open before subscribing.
+            time.sleep(0.1)
         self.ws.send(subscription_message)
         self.subscriptions[req_id] = subscription_message
-        self._set_callback(topic, callback)
+        for topic in subscription_args:
+            self._set_callback(topic, callback)
 
     def _initialise_local_data(self, topic):
         # Create self.data
@@ -468,10 +468,6 @@ class _V5WebSocketManager(_WebSocketManager):
         else:
             self._process_normal_message(message)
 
-    def _extract_topic(self, topic_string):
-        if topic_string in self.private_topics:
-            return topic_string
-
     def _check_callback_directory(self, topics):
         for topic in topics:
             if topic in self.callback_directory:
@@ -480,14 +476,10 @@ class _V5WebSocketManager(_WebSocketManager):
                 )
 
     def _set_callback(self, topic, callback_function):
-        topic = self._extract_topic(topic)
-
         self.callback_directory[topic] = callback_function
 
     def _get_callback(self, topic):
-        topic = self._extract_topic(topic)
         return self.callback_directory[topic]
 
     def _pop_callback(self, topic):
-        topic = self._extract_topic(topic)
         self.callback_directory.pop(topic)
