@@ -322,15 +322,14 @@ class _V5WebSocketManager(_WebSocketManager):
         subscription_args = prepare_subscription_args(symbol)
         self._check_callback_directory(subscription_args)
 
-        while not self.is_connected():
-            # Wait until the connection is open before subscribing.
-            time.sleep(0.1)
-
         req_id = str(uuid4())
 
         subscription_message = json.dumps(
             {"op": "subscribe", "req_id": req_id, "args": subscription_args}
         )
+        while not self.is_connected():
+            # Wait until the connection is open before subscribing.
+            time.sleep(0.1)
         self.ws.send(subscription_message)
         self.subscriptions[req_id] = subscription_message
         for topic in subscription_args:
