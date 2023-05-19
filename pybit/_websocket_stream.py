@@ -469,10 +469,6 @@ class _V5WebSocketManager(_WebSocketManager):
         else:
             self._process_normal_message(message)
 
-    def _extract_topic(self, topic_string):
-        if topic_string in self.private_topics:
-            return topic_string
-
     def _check_callback_directory(self, topics):
         for topic in topics:
             if topic in self.callback_directory:
@@ -481,14 +477,10 @@ class _V5WebSocketManager(_WebSocketManager):
                 )
 
     def _set_callback(self, topic, callback_function):
-        topic = self._extract_topic(topic)
-
         self.callback_directory[topic] = callback_function
 
     def _get_callback(self, topic):
-        topic = self._extract_topic(topic)
         return self.callback_directory[topic]
 
     def _pop_callback(self, topic):
-        topic = self._extract_topic(topic)
         self.callback_directory.pop(topic)
