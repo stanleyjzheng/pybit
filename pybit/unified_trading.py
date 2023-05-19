@@ -147,7 +147,7 @@ class WebSocket(_V5WebSocketManager):
 
     # Public topics
 
-    def orderbook_stream(self, depth: int, symbol: str, callback):
+    def orderbook_stream(self, depth: int, symbol: (str, list), callback):
         """Subscribe to the orderbook stream. Supports different depths.
 
         Linear & inverse:
@@ -165,7 +165,7 @@ class WebSocket(_V5WebSocketManager):
         Level 100 data, push frequency: 100ms
 
         Required args:
-            symbol (string): Symbol name
+            symbol (string/list): Symbol name(s)
             depth (int): Orderbook depth
             callback:
 
@@ -173,10 +173,10 @@ class WebSocket(_V5WebSocketManager):
             https://bybit-exchange.github.io/docs/v5/websocket/public/orderbook
         """
         self._validate_public_topic()
-        topic = f"orderbook.{depth}.{symbol}"
-        self.subscribe(topic, callback)
+        topic = f"orderbook.{depth}." + "{symbol}"
+        self.subscribe(topic, callback, symbol)
 
-    def trade_stream(self, symbol: str, callback):
+    def trade_stream(self, symbol: (str, list), callback):
         """
         Subscribe to the recent trades stream.
         After subscription, you will be pushed trade messages in real-time.
@@ -184,103 +184,103 @@ class WebSocket(_V5WebSocketManager):
         Push frequency: real-time
 
         Required args:
-            symbol (string): Symbol name
+            symbol (string/list): Symbol name(s)
 
          Additional information:
             https://bybit-exchange.github.io/docs/v5/websocket/public/trade
         """
         self._validate_public_topic()
-        topic = f"publicTrade.{symbol}"
-        self.subscribe(topic, callback)
+        topic = f"publicTrade." + "{symbol}"
+        self.subscribe(topic, callback, symbol)
 
-    def ticker_stream(self, symbol: str, callback):
+    def ticker_stream(self, symbol: (str, list), callback):
         """Subscribe to the ticker stream.
 
         Push frequency: 100ms
 
         Required args:
-            symbol (string): Symbol name
+            symbol (string/list): Symbol name(s)
 
          Additional information:
             https://bybit-exchange.github.io/docs/v5/websocket/public/ticker
         """
         self._validate_public_topic()
-        topic = f"tickers.{symbol}"
-        self.subscribe(topic, callback)
+        topic = "tickers.{symbol}"
+        self.subscribe(topic, callback, symbol)
 
-    def kline_stream(self, interval: int, symbol: str, callback):
+    def kline_stream(self, interval: int, symbol: (str, list), callback):
         """Subscribe to the klines stream.
 
         Push frequency: 1-60s
 
         Required args:
-            symbol (string): Symbol name
+            symbol (string/list): Symbol name(s)
             interval (int): Kline interval
 
          Additional information:
             https://bybit-exchange.github.io/docs/v5/websocket/public/kline
         """
         self._validate_public_topic()
-        topic = f"kline.{interval}.{symbol}"
-        self.subscribe(topic, callback)
+        topic = f"kline.{interval}." + "{symbol}"
+        self.subscribe(topic, callback, symbol)
 
-    def liquidation_stream(self, symbol: str, callback):
+    def liquidation_stream(self, symbol: (str, list), callback):
         """Subscribe to the klines stream.
 
         Push frequency: 1-60s
 
         Required args:
-            symbol (string): Symbol name
+            symbol (string/list): Symbol name(s)
 
          Additional information:
             https://bybit-exchange.github.io/docs/v5/websocket/public/kline
         """
         self._validate_public_topic()
-        topic = f"liquidation.{symbol}"
-        self.subscribe(topic, callback)
+        topic = "liquidation.{symbol}"
+        self.subscribe(topic, callback, symbol)
 
-    def lt_kline_stream(self, interval: int, symbol: str, callback):
+    def lt_kline_stream(self, interval: int, symbol: (str, list), callback):
         """Subscribe to the leveraged token kline stream.
 
         Push frequency: 1-60s
 
         Required args:
-            symbol (string): Symbol name
+            symbol (string/list): Symbol name(s)
             interval (int): Leveraged token Kline stream interval
 
          Additional information:
             https://bybit-exchange.github.io/docs/v5/websocket/public/etp-kline
         """
         self._validate_public_topic()
-        topic = f"kline_lt.{interval}.{symbol}"
-        self.subscribe(topic, callback)
+        topic = f"kline_lt.{interval}." + "{symbol}"
+        self.subscribe(topic, callback, symbol)
 
-    def lt_ticker_stream(self, symbol: str, callback):
+    def lt_ticker_stream(self, symbol: (str, list), callback):
         """Subscribe to the leveraged token ticker stream.
 
         Push frequency: 300ms
 
         Required args:
-            symbol (string): Symbol name
+            symbol (string/list): Symbol name(s)
 
          Additional information:
             https://bybit-exchange.github.io/docs/v5/websocket/public/etp-ticker
         """
         self._validate_public_topic()
-        topic = f"tickers_lt.{symbol}"
-        self.subscribe(topic, callback)
+        topic = "tickers_lt.{symbol}"
+        self.subscribe(topic, callback, symbol)
 
-    def lt_nav_stream(self, symbol: str, callback):
+    def lt_nav_stream(self, symbol: (str, list), callback):
         """Subscribe to the leveraged token nav stream.
 
         Push frequency: 300ms
 
         Required args:
-            symbol (string): Symbol name
+            symbol (string/list): Symbol name(s)
 
          Additional information:
             https://bybit-exchange.github.io/docs/v5/websocket/public/etp-nav
         """
         self._validate_public_topic()
-        topic = f"lt.{symbol}"
-        self.subscribe(topic, callback)
+        topic = "lt.{symbol}"
+        self.subscribe(topic, callback, symbol)
