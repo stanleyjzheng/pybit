@@ -6,14 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
-## Unreleased
-- Remove unnecessary `print` statements in two methods
-- Add extra logging (log response headers) when passing `log_requests=True`
-- Fix API rate limit handling
+## [5.3.0] - 2023-05-19
+### Added
+- Multiple symbol support for WebSocket topics (pass `symbol` as a list)
+- Extra logging (log response headers) when passing `log_requests=True`
+- Argument `return_response_headers` for `HTTP` to allow returning the response headers to the user
+
+### Modified
 - Add response headers to exceptions
-- Add argument `return_response_headers` to allow returning the response headers to the user
+
+### Fixed
 - Update PyPI package's python version so that only =>3.9 is supported to prevent the error: `TypeError: 'type' object is not subscriptable`
-- Add multiple symbol support for WebSocket topics (pass `symbol` as a list)
+- Fix API rate limit handling
+- Remove unnecessary `print` statements in two methods
+
 
 ## [5.2.0] - 2023-04-18
 ### Added
