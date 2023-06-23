@@ -184,3 +184,19 @@ class UserHTTP(_V5HTTPManager):
             query=kwargs,
             auth=True,
         )
+
+    def get_uid_wallet_type(self, **kwargs):
+        """Get available wallet types for the master account or sub account
+
+        Returns:
+            Request results as dictionary.
+
+        Additional information:
+            https://bybit-exchange.github.io/docs/v5/user/wallet-type
+        """
+        return self._submit_request(
+            method="GET",
+            path=f"{self.endpoint}{User.GET_UID_WALLET_TYPE}",
+            query=kwargs,
+            auth=True,
+        )
