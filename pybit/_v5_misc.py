@@ -7,10 +7,6 @@ class MiscHTTP(_V5HTTPManager):
         """
         Required args:
             locale (string): Language symbol
-            type (string): Announcement type
-            tag (string): Announcement tag
-            page (integer): Page number. Default: 1
-            limit (integer): Limit for data size per page. Default: 20
 
         Returns:
             Request results as dictionary.
