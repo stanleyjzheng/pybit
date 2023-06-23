@@ -4,6 +4,7 @@ from pybit.exceptions import (
     TopicMismatchError,
     UnauthorizedExceptionError,
 )
+from ._v5_misc import MiscHTTP
 from ._v5_market import MarketHTTP
 from ._v5_trade import TradeHTTP
 from ._v5_account import AccountHTTP
@@ -29,6 +30,7 @@ AVAILABLE_CHANNEL_TYPES = [
 
 @dataclass
 class HTTP(
+    MiscHTTP,
     MarketHTTP,
     TradeHTTP,
     AccountHTTP,
