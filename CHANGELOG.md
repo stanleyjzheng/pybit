@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.4.0] - 2023-06-23
+### Added
+- The following new endpoints to `unified_trading`:
+  - `get_broker_earnings`
+  - `get_announcement`
+  - `get_pre_upgrade_order_history`
+  - `get_pre_upgrade_trade_history`
+  - `get_pre_upgrade_closed_pnl`
+  - `get_pre_upgrade_transaction_log`
+  - `get_pre_upgrade_option_delivery_record`
+  - `get_pre_upgrade_usdc_session_settlement`
+  - `get_affiliate_user_info`
+  - `get_uid_wallet_type`
 
 ## [5.3.0] - 2023-05-19
 ### Added

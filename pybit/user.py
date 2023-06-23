@@ -11,6 +11,8 @@ class User(str, Enum):
     MODIFY_SUB_API_KEY = "/v5/user/update-sub-api"
     DELETE_MASTER_API_KEY = "/v5/user/delete-api"
     DELETE_SUB_API_KEY = "/v5/user/delete-sub-api"
+    GET_AFFILIATE_USER_INFO = "/v5/user/aff-customer-info"
+    GET_UID_WALLET_TYPE = "/v5/user/get-member-type"
 
     def __str__(self) -> str:
         return self.value

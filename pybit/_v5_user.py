@@ -165,3 +165,38 @@ class UserHTTP(_V5HTTPManager):
             query=kwargs,
             auth=True,
         )
+
+    def get_affiliate_user_info(self, **kwargs):
+        """This API is used for affiliate to get their users information
+
+        Required args:
+            uid (integer): The master account uid of affiliate's client
+
+        Returns:
+            Request results as dictionary.
+
+        Additional information:
+            https://bybit-exchange.github.io/docs/v5/user/affiliate-info
+        """
+        return self._submit_request(
+            method="GET",
+            path=f"{self.endpoint}{User.GET_AFFILIATE_USER_INFO}",
+            query=kwargs,
+            auth=True,
+        )
+
+    def get_uid_wallet_type(self, **kwargs):
+        """Get available wallet types for the master account or sub account
+
+        Returns:
+            Request results as dictionary.
+
+        Additional information:
+            https://bybit-exchange.github.io/docs/v5/user/wallet-type
+        """
+        return self._submit_request(
+            method="GET",
+            path=f"{self.endpoint}{User.GET_UID_WALLET_TYPE}",
+            query=kwargs,
+            auth=True,
+        )
