@@ -90,8 +90,8 @@ class PrivateWebSocketTest(unittest.TestCase):
         ws_private = WebSocket(
             testnet=True,
             channel_type="private",
-            api_key="QjrxRZzwZLHGWkNUae",
-            api_secret="BeKzaWbdOLz7sAnllwSInDO43v9CgvDQLRl3",
+            api_key="...",
+            api_secret="...",
             trace_logging=True,
             #private_auth_expire=10
         )
