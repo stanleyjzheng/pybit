@@ -80,3 +80,21 @@ class WebSocketTest(unittest.TestCase):
             )
 
             ws.order_stream(callback=self._callback_function)
+            
+class PrivateWebSocketTest(unittest.TestCase):
+    # Connect to private websocket and see if we can auth.
+    def _callback_function(msg):
+        print(msg)
+    
+    def test_private_websocket_connect(self):
+        ws_private = WebSocket(
+            testnet=True,
+            channel_type="private",
+            api_key="QjrxRZzwZLHGWkNUae",
+            api_secret="BeKzaWbdOLz7sAnllwSInDO43v9CgvDQLRl3",
+            trace_logging=True,
+            #private_auth_expire=10
+        )
+        
+        ws_private.position_stream(callback=self._callback_function)
+        #time.sleep(10)
