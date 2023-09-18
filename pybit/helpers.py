@@ -31,7 +31,7 @@ class Helpers:
 
         responses = []
         for position in positions:
-            if position["side"]:
+            if position["side"] and float(position["size"]) != 0:
                 response = self.session.place_order(
                     category=category,
                     symbol=symbol,
