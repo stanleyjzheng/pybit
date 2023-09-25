@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 - Improve `close_position` logic
+- Add RSA authentication for HTTP and WebSocket (choose "Self-generated API Keys" when [creating](https://testnet.bybit.com/app/user/api-management) an API key)
+  - To use it, pass `rsa_authentication=True` along with your `api_key` and `api_secret`
+    - Your `api_key` is given to you after inputting your public key (RSA) into Bybit's API management system
+    - Your `api_secret` is the private key (RSA) you generate
+  - Learn more [here](https://www.bybit.com/en-US/help-center/bybitHC_Article?id=000001923&language=en_US)
+  - See examples files: [HTTP](https://github.com/bybit-exchange/pybit/blob/master/examples/http_example_rsa_authentication.py) and [WebSocket](https://github.com/bybit-exchange/pybit/blob/master/examples/websocket_example_rsa_authentication.py)
 
 ## [5.5.0] - 2023-07-17
 ### Added
