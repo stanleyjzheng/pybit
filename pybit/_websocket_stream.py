@@ -37,6 +37,7 @@ class _WebSocketManager:
         retries=10,
         restart_on_error=True,
         trace_logging=False,
+        private_auth_expire=1
     ):
         self.testnet = testnet
         self.domain = domain
@@ -50,6 +51,9 @@ class _WebSocketManager:
         self.ws_name = ws_name
         if api_key:
             self.ws_name += " (Auth)"
+        
+        # Deltatime for private auth expiration in seconds
+        self.private_auth_expire = private_auth_expire
 
         # Setup the callback directory following the format:
         #   {
@@ -202,7 +206,7 @@ class _WebSocketManager:
             return base64.b64encode(signature).decode()
 
         # Generate expires.
-        expires = _helpers.generate_timestamp() + 1000
+        expires = _helpers.generate_timestamp() + (self.private_auth_expire * 1000)
 
         # Generate signature.
         _val = f"GET/realtime{expires}"
