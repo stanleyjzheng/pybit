@@ -52,7 +52,7 @@ class _WebSocketManager:
         if api_key:
             self.ws_name += " (Auth)"
         
-        # Deltatime for private auth expiration in seconds
+        # Delta time for private auth expiration in seconds
         self.private_auth_expire = private_auth_expire
 
         # Setup the callback directory following the format:
