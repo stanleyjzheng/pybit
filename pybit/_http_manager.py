@@ -3,6 +3,10 @@ from dataclasses import dataclass, field
 import time
 import hmac
 import hashlib
+from Crypto.Hash import SHA256
+from Crypto.PublicKey import RSA
+from Crypto.Signature import PKCS1_v1_5
+import base64
 import json
 import logging
 import requests
@@ -29,6 +33,7 @@ DOMAIN_ALT = "bytick"
 class _V5HTTPManager:
     testnet: bool = field(default=False)
     domain: str = field(default="bybit")
+    rsa_authentication: str = field(default=False)
     api_key: str = field(default=None)
     api_secret: str = field(default=None)
     logging_level: logging = field(default=logging.INFO)
@@ -125,6 +130,19 @@ class _V5HTTPManager:
         """
         Generates authentication signature per Bybit API specifications.
         """
+        def generate_hmac():
+            hash = hmac.new(
+                bytes(api_secret, "utf-8"),
+                param_str.encode("utf-8"),
+                hashlib.sha256,
+            )
+            return hash.hexdigest()
+
+        def generate_rsa():
+            private_key = RSA.importKey(api_secret)
+            encoded_param_str = SHA256.new(param_str.encode("utf-8"))
+            signature = PKCS1_v1_5.new(private_key).sign(encoded_param_str)
+            return base64.b64encode(signature).decode()
 
         api_key = self.api_key
         api_secret = self.api_secret
@@ -133,12 +151,11 @@ class _V5HTTPManager:
             raise PermissionError("Authenticated endpoints require keys.")
 
         param_str = str(timestamp) + api_key + str(recv_window) + payload
-        hash = hmac.new(
-            bytes(api_secret, "utf-8"),
-            param_str.encode("utf-8"),
-            hashlib.sha256,
-        )
-        return hash.hexdigest()
+
+        if not self.rsa_authentication:
+            return generate_hmac()
+        else:
+            return generate_rsa()
 
     @staticmethod
     def _verify_string(params, key):

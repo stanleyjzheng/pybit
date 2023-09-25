@@ -4,7 +4,10 @@ import time
 import json
 import hmac
 import logging
-import re
+from Crypto.Hash import SHA256
+from Crypto.PublicKey import RSA
+from Crypto.Signature import PKCS1_v1_5
+import base64
 import copy
 from uuid import uuid4
 from . import _helpers
@@ -26,6 +29,7 @@ class _WebSocketManager:
         ws_name,
         testnet,
         domain="",
+        rsa_authentication=False,
         api_key=None,
         api_secret=None,
         ping_interval=20,
@@ -36,6 +40,7 @@ class _WebSocketManager:
     ):
         self.testnet = testnet
         self.domain = domain
+        self.rsa_authentication = rsa_authentication
 
         # Set API keys.
         self.api_key = api_key
@@ -182,18 +187,30 @@ class _WebSocketManager:
         Authorize websocket connection.
         """
 
+        def generate_hmac():
+            hash = hmac.new(
+                bytes(self.api_secret, "utf-8"),
+                bytes(_val, "utf-8"),
+                digestmod="sha256",
+            )
+            return hash.hexdigest()
+
+        def generate_rsa():
+            private_key = RSA.importKey(self.api_secret)
+            encoded_param_str = SHA256.new(_val.encode("utf-8"))
+            signature = PKCS1_v1_5.new(private_key).sign(encoded_param_str)
+            return base64.b64encode(signature).decode()
+
         # Generate expires.
         expires = _helpers.generate_timestamp() + 1000
 
         # Generate signature.
         _val = f"GET/realtime{expires}"
-        signature = str(
-            hmac.new(
-                bytes(self.api_secret, "utf-8"),
-                bytes(_val, "utf-8"),
-                digestmod="sha256",
-            ).hexdigest()
-        )
+
+        if not self.rsa_authentication:
+            signature = generate_hmac()
+        else:
+            signature = generate_rsa()
 
         # Authenticate with API.
         self.ws.send(
