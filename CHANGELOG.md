@@ -5,8 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
-- Improve `close_position` logic
+
+## [5.6.0] - 2023-09-28
+### Added
 - Add RSA authentication for HTTP and WebSocket (choose "Self-generated API Keys" when [creating](https://testnet.bybit.com/app/user/api-management) an API key)
   - To use it, pass `rsa_authentication=True` along with your `api_key` and `api_secret`
     - Your `api_key` is given to you after inputting your public key (RSA) into Bybit's API management system
@@ -15,8 +16,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - See examples files: [HTTP](https://github.com/bybit-exchange/pybit/blob/master/examples/http_example_rsa_authentication.py) and [WebSocket](https://github.com/bybit-exchange/pybit/blob/master/examples/websocket_example_rsa_authentication.py)
 - Add the `HTTP` method `get_server_time()`
 - Add `HTTP` methods for spot margin trading
-- Deprecate the `HTTP` method `enable_universal_transfer_for_sub_uid()`
 - Add `HTTP` method `get_long_short_ratio()`
+
+### Deprecated
+- The `HTTP` method `enable_universal_transfer_for_sub_uid()`
+
+### Fixed
+- Improve `close_position` logic
+
 
 ## [5.5.0] - 2023-07-17
 ### Added
@@ -40,6 +47,7 @@ print(my_helper.close_position(category="linear", symbol="BTCUSDT"))
   - `get_pre_upgrade_usdc_session_settlement`
   - `get_affiliate_user_info`
   - `get_uid_wallet_type`
+
 
 ## [5.3.0] - 2023-05-19
 ### Added
