@@ -279,3 +279,21 @@ class MarketHTTP(_V5HTTPManager):
             path=f"{self.endpoint}{Market.GET_OPTION_DELIVERY_PRICE}",
             query=kwargs,
         )
+
+    def get_long_short_ratio(self, **kwargs):
+        """
+        Required args:
+            category (string): Product type. linear (USDT Perpetual only), inverse
+            symbol (string): Symbol name
+
+        Returns:
+            Request results as dictionary.
+
+        Additional information:
+            https://bybit-exchange.github.io/docs/v5/market/long-short-ratio
+        """
+        return self._submit_request(
+            method="GET",
+            path=f"{self.endpoint}{Market.GET_LONG_SHORT_RATIO}",
+            query=kwargs,
+        )

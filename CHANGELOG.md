@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add the `HTTP` method `get_server_time()`
 - Add `HTTP` methods for spot margin trading
 - Deprecate the `HTTP` method `enable_universal_transfer_for_sub_uid()`
+- Add `HTTP` method `get_long_short_ratio()`
 
 ## [5.5.0] - 2023-07-17
 ### Added
