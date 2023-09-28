@@ -2,6 +2,7 @@ from enum import Enum
 
 
 class Market(str, Enum):
+    GET_SERVER_TIME = "/v5/market/time"
     GET_KLINE = "/v5/market/kline"
     GET_MARK_PRICE_KLINE = "/v5/market/mark-price-kline"
     GET_INDEX_PRICE_KLINE = "/v5/market/index-price-kline"

@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Your `api_secret` is the private key (RSA) you generate
   - Learn more [here](https://www.bybit.com/en-US/help-center/bybitHC_Article?id=000001923&language=en_US)
   - See examples files: [HTTP](https://github.com/bybit-exchange/pybit/blob/master/examples/http_example_rsa_authentication.py) and [WebSocket](https://github.com/bybit-exchange/pybit/blob/master/examples/websocket_example_rsa_authentication.py)
+- Add the `HTTP` method `get_server_time()`
 
 ## [5.5.0] - 2023-07-17
 ### Added
