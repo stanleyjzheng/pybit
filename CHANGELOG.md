@@ -17,13 +17,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add the `HTTP` method `get_server_time()`
 - Add `HTTP` methods for spot margin trading
 - Add `HTTP` method `get_long_short_ratio()`
+- Add optional `private_auth_expire` arg for WebSocket (https://github.com/bybit-exchange/pybit/pull/154)
 
 ### Deprecated
 - The `HTTP` method `enable_universal_transfer_for_sub_uid()`
 
 ### Fixed
 - Improve `close_position` logic
-
 
 ## [5.5.0] - 2023-07-17
 ### Added
