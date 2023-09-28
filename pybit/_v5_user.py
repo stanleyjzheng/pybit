@@ -99,9 +99,6 @@ class UserHTTP(_V5HTTPManager):
     def modify_master_api_key(self, **kwargs):
         """Modify the settings of master api key. Use the api key pending to be modified to call the endpoint. Use master user's api key only.
 
-        Required args:
-            permissions (Object): Tick the types of permission. one of below types must be passed, otherwise the error is thrown
-
         Returns:
             Request results as dictionary.
 
@@ -117,9 +114,6 @@ class UserHTTP(_V5HTTPManager):
 
     def modify_sub_api_key(self, **kwargs):
         """Modify the settings of sub api key. Use the api key pending to be modified to call the endpoint. Use sub user's api key only.
-
-        Required args:
-            permissions (Object): Tick the types of permission. one of below types must be passed, otherwise the error is thrown
 
         Returns:
             Request results as dictionary.
