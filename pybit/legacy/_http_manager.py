@@ -300,7 +300,7 @@ class _HTTPManager:
             # Check HTTP status code before trying to decode JSON.
             if s.status_code != 200:
                 if s.status_code == 403:
-                    error_msg = "You have breached the IP rate limit."
+                    error_msg = "You have breached the IP rate limit or your IP is from the USA."
                 else:
                     error_msg = "HTTP status code is not 200."
                 self.logger.debug(f"Response text: {s.text}")
@@ -805,7 +805,7 @@ class _V3HTTPManager:
             # Check HTTP status code before trying to decode JSON.
             if s.status_code != 200:
                 if s.status_code == 403:
-                    error_msg = "You have breached the IP rate limit."
+                    error_msg = "You have breached the IP rate limit or your IP is from the USA."
                 else:
                     error_msg = "HTTP status code is not 200."
                 self.logger.debug(f"Response text: {s.text}")
