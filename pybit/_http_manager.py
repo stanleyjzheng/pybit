@@ -32,7 +32,7 @@ DOMAIN_ALT = "bytick"
 @dataclass
 class _V5HTTPManager:
     testnet: bool = field(default=False)
-    domain: str = field(default="bybit")
+    domain: str = field(default=DOMAIN_MAIN)
     rsa_authentication: str = field(default=False)
     api_key: str = field(default=None)
     api_secret: str = field(default=None)
