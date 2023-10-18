@@ -2,12 +2,8 @@ import websocket
 import threading
 import time
 import json
-import hmac
+from ._http_manager import generate_signature
 import logging
-from Crypto.Hash import SHA256
-from Crypto.PublicKey import RSA
-from Crypto.Signature import PKCS1_v1_5
-import base64
 import copy
 from uuid import uuid4
 from . import _helpers
@@ -188,33 +184,16 @@ class _WebSocketManager:
 
     def _auth(self):
         """
-        Authorize websocket connection.
+        Prepares authentication signature per Bybit API specifications.
         """
 
-        def generate_hmac():
-            hash = hmac.new(
-                bytes(self.api_secret, "utf-8"),
-                bytes(_val, "utf-8"),
-                digestmod="sha256",
-            )
-            return hash.hexdigest()
-
-        def generate_rsa():
-            private_key = RSA.importKey(self.api_secret)
-            encoded_param_str = SHA256.new(_val.encode("utf-8"))
-            signature = PKCS1_v1_5.new(private_key).sign(encoded_param_str)
-            return base64.b64encode(signature).decode()
-
-        # Generate expires.
         expires = _helpers.generate_timestamp() + (self.private_auth_expire * 1000)
 
-        # Generate signature.
-        _val = f"GET/realtime{expires}"
+        param_str = f"GET/realtime{expires}"
 
-        if not self.rsa_authentication:
-            signature = generate_hmac()
-        else:
-            signature = generate_rsa()
+        signature = generate_signature(
+            self.rsa_authentication, self.api_secret, param_str
+        )
 
         # Authenticate with API.
         self.ws.send(
