@@ -29,6 +29,30 @@ DOMAIN_MAIN = "bybit"
 DOMAIN_ALT = "bytick"
 
 
+def generate_signature(use_rsa_authentication, secret, param_str):
+    def generate_hmac():
+        hash = hmac.new(
+            bytes(secret, "utf-8"),
+            param_str.encode("utf-8"),
+            hashlib.sha256,
+        )
+        return hash.hexdigest()
+
+    def generate_rsa():
+        hash = SHA256.new(param_str.encode("utf-8"))
+        encoded_signature = base64.b64encode(
+            PKCS1_v1_5.new(RSA.importKey(secret)).sign(
+                hash
+            )
+        )
+        return encoded_signature.decode()
+
+    if not use_rsa_authentication:
+        return generate_hmac()
+    else:
+        return generate_rsa()
+
+
 @dataclass
 class _V5HTTPManager:
     testnet: bool = field(default=False)
@@ -128,34 +152,17 @@ class _V5HTTPManager:
 
     def _auth(self, payload, recv_window, timestamp):
         """
-        Generates authentication signature per Bybit API specifications.
+        Prepares authentication signature per Bybit API specifications.
         """
-        def generate_hmac():
-            hash = hmac.new(
-                bytes(api_secret, "utf-8"),
-                param_str.encode("utf-8"),
-                hashlib.sha256,
-            )
-            return hash.hexdigest()
 
-        def generate_rsa():
-            private_key = RSA.importKey(api_secret)
-            encoded_param_str = SHA256.new(param_str.encode("utf-8"))
-            signature = PKCS1_v1_5.new(private_key).sign(encoded_param_str)
-            return base64.b64encode(signature).decode()
-
-        api_key = self.api_key
-        api_secret = self.api_secret
-
-        if api_key is None or api_secret is None:
+        if self.api_key is None or self.api_secret is None:
             raise PermissionError("Authenticated endpoints require keys.")
 
-        param_str = str(timestamp) + api_key + str(recv_window) + payload
+        param_str = str(timestamp) + self.api_key + str(recv_window) + payload
 
-        if not self.rsa_authentication:
-            return generate_hmac()
-        else:
-            return generate_rsa()
+        return generate_signature(
+            self.rsa_authentication, self.api_secret, param_str
+        )
 
     @staticmethod
     def _verify_string(params, key):
