@@ -15,6 +15,7 @@ from ._v5_spot_leverage_token import SpotLeverageHTTP
 from ._v5_spot_margin_trade import SpotMarginTradeHTTP
 from ._v5_user import UserHTTP
 from ._v5_broker import BrokerHTTP
+from ._v5_institutional_loan import InstitutionalLoanHTTP
 from ._websocket_stream import _V5WebSocketManager
 
 
@@ -43,6 +44,7 @@ class HTTP(
     SpotMarginTradeHTTP,
     UserHTTP,
     BrokerHTTP,
+    InstitutionalLoanHTTP,
 ):
     def __init__(self, **args):
         super().__init__(**args)
