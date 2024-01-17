@@ -7,7 +7,7 @@ from pybit.unified_trading import HTTP
 
 # The API key is given to you by Bybit's API management page after inputting
 # your RSA public key.
-api_key = "ZzM49jZjnY6CQla21b"
+api_key = "xxxxxxx"
 # The API secret is your RSA generated private key. It begins with the line:
 # -----BEGIN PRIVATE KEY-----
 with open("my_rsa_private_key.pem", "r") as private_key_file:
