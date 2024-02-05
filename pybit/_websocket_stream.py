@@ -426,7 +426,7 @@ class _V5WebSocketManager(_WebSocketManager):
         elif message.get("success") is False or message.get("type") == "error":
             raise Exception(
                 f"Authorization for {self.ws_name} failed. Please check your "
-                f"API keys and restart. Raw error: {message}"
+                f"API keys and resync your system time. Raw error: {message}"
             )
 
     def _process_subscription_message(self, message):
