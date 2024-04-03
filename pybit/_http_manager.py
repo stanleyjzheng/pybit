@@ -22,11 +22,14 @@ try:
 except ImportError:
     from json.decoder import JSONDecodeError
 
-HTTP_URL = "https://{SUBDOMAIN}.{DOMAIN}.com"
+HTTP_URL = "https://{SUBDOMAIN}.{DOMAIN}.{TLD}"
 SUBDOMAIN_TESTNET = "api-testnet"
 SUBDOMAIN_MAINNET = "api"
 DOMAIN_MAIN = "bybit"
 DOMAIN_ALT = "bytick"
+TLD_MAIN = "com"
+TLD_NL = "nl"
+TLD_HK = "com.hk"
 
 
 def generate_signature(use_rsa_authentication, secret, param_str):
@@ -57,6 +60,7 @@ def generate_signature(use_rsa_authentication, secret, param_str):
 class _V5HTTPManager:
     testnet: bool = field(default=False)
     domain: str = field(default=DOMAIN_MAIN)
+    tld: str = field(default=TLD_MAIN)
     rsa_authentication: str = field(default=False)
     api_key: str = field(default=None)
     api_secret: str = field(default=None)
@@ -82,7 +86,7 @@ class _V5HTTPManager:
     def __post_init__(self):
         subdomain = SUBDOMAIN_TESTNET if self.testnet else SUBDOMAIN_MAINNET
         domain = DOMAIN_MAIN if not self.domain else self.domain
-        url = HTTP_URL.format(SUBDOMAIN=subdomain, DOMAIN=domain)
+        url = HTTP_URL.format(SUBDOMAIN=subdomain, DOMAIN=domain, TLD=self.tld)
         self.endpoint = url
 
         if not self.ignore_codes:
