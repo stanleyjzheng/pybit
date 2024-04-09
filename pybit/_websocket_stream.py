@@ -16,7 +16,8 @@ SUBDOMAIN_TESTNET = "stream-testnet"
 SUBDOMAIN_MAINNET = "stream"
 DOMAIN_MAIN = "bybit"
 DOMAIN_ALT = "bytick"
-
+DEMO_SUBDOMAIN_TESTNET = "api-demo-testnet"
+DEMO_SUBDOMAIN_MAINNET = "api-demo"
 
 class _WebSocketManager:
     def __init__(
@@ -33,12 +34,13 @@ class _WebSocketManager:
         retries=10,
         restart_on_error=True,
         trace_logging=False,
-        private_auth_expire=1
+        private_auth_expire=1,
+        demo=False
     ):
         self.testnet = testnet
         self.domain = domain
         self.rsa_authentication = rsa_authentication
-
+        self.demo = demo
         # Set API keys.
         self.api_key = api_key
         self.api_secret = api_secret
@@ -123,6 +125,11 @@ class _WebSocketManager:
         # Set endpoint.
         subdomain = SUBDOMAIN_TESTNET if self.testnet else SUBDOMAIN_MAINNET
         domain = DOMAIN_MAIN if not self.domain else self.domain
+        if self.demo:
+            if self.testnet:
+                subdomain=DEMO_SUBDOMAIN_TESTNET
+            else:
+                subdomain=DEMO_SUBDOMAIN_MAINNET
         url = url.format(SUBDOMAIN=subdomain, DOMAIN=domain)
         self.endpoint = url
 
@@ -360,6 +367,8 @@ class _V5WebSocketManager(_WebSocketManager):
 
         # Make updates according to delta response.
         book_sides = {"b": message["data"]["b"], "a": message["data"]["a"]}
+        self.data[topic]["u"]=message["data"]["u"]
+        self.data[topic]["seq"]=message["data"]["seq"]
 
         for side, entries in book_sides.items():
             for entry in entries:

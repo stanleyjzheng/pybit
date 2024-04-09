@@ -30,6 +30,8 @@ DOMAIN_ALT = "bytick"
 TLD_MAIN = "com"
 TLD_NL = "nl"
 TLD_HK = "com.hk"
+DEMO_SUBDOMAIN_TESTNET = "api-demo-testnet"
+DEMO_SUBDOMAIN_MAINNET = "api-demo"
 
 
 def generate_signature(use_rsa_authentication, secret, param_str):
@@ -82,10 +84,16 @@ class _V5HTTPManager:
     referral_id: bool = field(default=None)
     record_request_time: bool = field(default=False)
     return_response_headers: bool = field(default=False)
+    demo: bool = field(default=False)
 
     def __post_init__(self):
         subdomain = SUBDOMAIN_TESTNET if self.testnet else SUBDOMAIN_MAINNET
         domain = DOMAIN_MAIN if not self.domain else self.domain
+        if self.demo:
+            if self.testnet:
+                subdomain=DEMO_SUBDOMAIN_TESTNET
+            else:
+                subdomain=DEMO_SUBDOMAIN_MAINNET
         url = HTTP_URL.format(SUBDOMAIN=subdomain, DOMAIN=domain, TLD=self.tld)
         self.endpoint = url
 
@@ -241,18 +249,6 @@ class _V5HTTPManager:
             else:
                 headers = {}
 
-            # Log the request.
-            if self.log_requests:
-                if req_params:
-                    self.logger.debug(
-                        f"Request -> {method} {path}. Body: {req_params}. "
-                        f"Headers: {headers}"
-                    )
-                else:
-                    self.logger.debug(
-                        f"Request -> {method} {path}. Headers: {headers}"
-                    )
-
             if method == "GET":
                 if req_params:
                     r = self.client.prepare_request(
@@ -270,6 +266,18 @@ class _V5HTTPManager:
                         method, path, data=req_params, headers=headers
                     )
                 )
+            
+            # Log the request.
+            if self.log_requests:
+                if req_params:
+                    self.logger.debug(
+                        f"Request -> {method} {path}. Body: {req_params}. "
+                        f"Headers: {r.headers}"
+                    )
+                else:
+                    self.logger.debug(
+                        f"Request -> {method} {path}. Headers: {r.headers}"
+                    )
 
             # Attempt the request.
             try:
