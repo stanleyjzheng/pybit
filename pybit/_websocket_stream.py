@@ -16,8 +16,8 @@ SUBDOMAIN_TESTNET = "stream-testnet"
 SUBDOMAIN_MAINNET = "stream"
 DOMAIN_MAIN = "bybit"
 DOMAIN_ALT = "bytick"
-DEMO_SUBDOMAIN_TESTNET = "api-demo-testnet"
-DEMO_SUBDOMAIN_MAINNET = "api-demo"
+DEMO_SUBDOMAIN_TESTNET = "stream-demo-testnet"
+DEMO_SUBDOMAIN_MAINNET = "stream-demo"
 
 class _WebSocketManager:
     def __init__(
