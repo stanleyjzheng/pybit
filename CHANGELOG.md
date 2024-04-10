@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Add methods for the [Institutional Loan](https://bybit-exchange.github.io/docs/v5/otc/margin-product-info) endpoints
+- Add [Account](https://bybit-exchange.github.io/docs/v5/account/wallet-balance) methods `repay_liability()`, `set_collateral_coin()`, `batch_set_collateral_coin()`
 - `tld` arg for users in The Netherlands and Hong Kong
 
 ### Fixed
