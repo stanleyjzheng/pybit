@@ -25,13 +25,13 @@ except ImportError:
 HTTP_URL = "https://{SUBDOMAIN}.{DOMAIN}.{TLD}"
 SUBDOMAIN_TESTNET = "api-testnet"
 SUBDOMAIN_MAINNET = "api"
+DEMO_SUBDOMAIN_TESTNET = "api-demo-testnet"
+DEMO_SUBDOMAIN_MAINNET = "api-demo"
 DOMAIN_MAIN = "bybit"
 DOMAIN_ALT = "bytick"
 TLD_MAIN = "com"
 TLD_NL = "nl"
 TLD_HK = "com.hk"
-DEMO_SUBDOMAIN_TESTNET = "api-demo-testnet"
-DEMO_SUBDOMAIN_MAINNET = "api-demo"
 
 
 def generate_signature(use_rsa_authentication, secret, param_str):
@@ -91,9 +91,9 @@ class _V5HTTPManager:
         domain = DOMAIN_MAIN if not self.domain else self.domain
         if self.demo:
             if self.testnet:
-                subdomain=DEMO_SUBDOMAIN_TESTNET
+                subdomain = DEMO_SUBDOMAIN_TESTNET
             else:
-                subdomain=DEMO_SUBDOMAIN_MAINNET
+                subdomain = DEMO_SUBDOMAIN_MAINNET
         url = HTTP_URL.format(SUBDOMAIN=subdomain, DOMAIN=domain, TLD=self.tld)
         self.endpoint = url
 

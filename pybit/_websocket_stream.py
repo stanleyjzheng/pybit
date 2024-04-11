@@ -14,10 +14,11 @@ logger = logging.getLogger(__name__)
 
 SUBDOMAIN_TESTNET = "stream-testnet"
 SUBDOMAIN_MAINNET = "stream"
-DOMAIN_MAIN = "bybit"
-DOMAIN_ALT = "bytick"
 DEMO_SUBDOMAIN_TESTNET = "stream-demo-testnet"
 DEMO_SUBDOMAIN_MAINNET = "stream-demo"
+DOMAIN_MAIN = "bybit"
+DOMAIN_ALT = "bytick"
+
 
 class _WebSocketManager:
     def __init__(
@@ -127,9 +128,9 @@ class _WebSocketManager:
         domain = DOMAIN_MAIN if not self.domain else self.domain
         if self.demo:
             if self.testnet:
-                subdomain=DEMO_SUBDOMAIN_TESTNET
+                subdomain = DEMO_SUBDOMAIN_TESTNET
             else:
-                subdomain=DEMO_SUBDOMAIN_MAINNET
+                subdomain = DEMO_SUBDOMAIN_MAINNET
         url = url.format(SUBDOMAIN=subdomain, DOMAIN=domain)
         self.endpoint = url
 
