@@ -57,6 +57,22 @@ class AccountHTTP(_V5HTTPManager):
             auth=True,
         )
 
+    def repay_liability(self, **kwargs):
+        """You can manually repay the liabilities of the Unified account
+
+        Returns:
+            Request results as dictionary.
+
+        Additional information:
+            https://bybit-exchange.github.io/docs/v5/account/repay-liability
+        """
+        return self._submit_request(
+            method="POST",
+            path=f"{self.endpoint}{Account.REPAY_LIABILITY}",
+            query=kwargs,
+            auth=True,
+        )
+
     def get_collateral_info(self, **kwargs):
         """Get the collateral information of the current unified margin account, including loan interest rate, loanable amount, collateral conversion rate, whether it can be mortgaged as margin, etc.
 
@@ -69,6 +85,47 @@ class AccountHTTP(_V5HTTPManager):
         return self._submit_request(
             method="GET",
             path=f"{self.endpoint}{Account.GET_COLLATERAL_INFO}",
+            query=kwargs,
+            auth=True,
+        )
+
+    def set_collateral_coin(self, **kwargs):
+        """You can decide whether the assets in the Unified account needs to be collateral coins.
+
+        Required args:
+            coin (string): Coin name
+            collateralSwitch (string): ON: switch on collateral, OFF: switch off collateral
+
+        Returns:
+            Request results as dictionary.
+
+        Additional information:
+            https://bybit-exchange.github.io/docs/v5/account/set-collateral
+        """
+        return self._submit_request(
+            method="POST",
+            path=f"{self.endpoint}{Account.SET_COLLATERAL_COIN}",
+            query=kwargs,
+            auth=True,
+        )
+
+    def batch_set_collateral_coin(self, **kwargs):
+        """You can decide whether the assets in the Unified account needs to be collateral coins.
+
+        Required args:
+            request (array): Object
+            > coin (string): Coin name
+            > collateralSwitch (string): ON: switch on collateral, OFF: switch off collateral
+
+        Returns:
+            Request results as dictionary.
+
+        Additional information:
+            https://bybit-exchange.github.io/docs/v5/account/batch-set-collateral
+        """
+        return self._submit_request(
+            method="POST",
+            path=f"{self.endpoint}{Account.BATCH_SET_COLLATERAL_COIN}",
             query=kwargs,
             auth=True,
         )
