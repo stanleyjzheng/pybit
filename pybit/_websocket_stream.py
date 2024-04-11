@@ -27,6 +27,7 @@ class _WebSocketManager:
         ws_name,
         testnet,
         domain="",
+        demo=False,
         rsa_authentication=False,
         api_key=None,
         api_secret=None,
@@ -36,7 +37,6 @@ class _WebSocketManager:
         restart_on_error=True,
         trace_logging=False,
         private_auth_expire=1,
-        demo=False
     ):
         self.testnet = testnet
         self.domain = domain
