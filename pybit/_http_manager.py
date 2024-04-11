@@ -63,6 +63,7 @@ class _V5HTTPManager:
     testnet: bool = field(default=False)
     domain: str = field(default=DOMAIN_MAIN)
     tld: str = field(default=TLD_MAIN)
+    demo: bool = field(default=False)
     rsa_authentication: str = field(default=False)
     api_key: str = field(default=None)
     api_secret: str = field(default=None)
@@ -84,7 +85,6 @@ class _V5HTTPManager:
     referral_id: bool = field(default=None)
     record_request_time: bool = field(default=False)
     return_response_headers: bool = field(default=False)
-    demo: bool = field(default=False)
 
     def __post_init__(self):
         subdomain = SUBDOMAIN_TESTNET if self.testnet else SUBDOMAIN_MAINNET
