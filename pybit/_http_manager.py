@@ -25,6 +25,8 @@ except ImportError:
 HTTP_URL = "https://{SUBDOMAIN}.{DOMAIN}.{TLD}"
 SUBDOMAIN_TESTNET = "api-testnet"
 SUBDOMAIN_MAINNET = "api"
+DEMO_SUBDOMAIN_TESTNET = "api-demo-testnet"
+DEMO_SUBDOMAIN_MAINNET = "api-demo"
 DOMAIN_MAIN = "bybit"
 DOMAIN_ALT = "bytick"
 TLD_MAIN = "com"
@@ -61,6 +63,7 @@ class _V5HTTPManager:
     testnet: bool = field(default=False)
     domain: str = field(default=DOMAIN_MAIN)
     tld: str = field(default=TLD_MAIN)
+    demo: bool = field(default=False)
     rsa_authentication: str = field(default=False)
     api_key: str = field(default=None)
     api_secret: str = field(default=None)
@@ -86,6 +89,11 @@ class _V5HTTPManager:
     def __post_init__(self):
         subdomain = SUBDOMAIN_TESTNET if self.testnet else SUBDOMAIN_MAINNET
         domain = DOMAIN_MAIN if not self.domain else self.domain
+        if self.demo:
+            if self.testnet:
+                subdomain = DEMO_SUBDOMAIN_TESTNET
+            else:
+                subdomain = DEMO_SUBDOMAIN_MAINNET
         url = HTTP_URL.format(SUBDOMAIN=subdomain, DOMAIN=domain, TLD=self.tld)
         self.endpoint = url
 
@@ -241,18 +249,6 @@ class _V5HTTPManager:
             else:
                 headers = {}
 
-            # Log the request.
-            if self.log_requests:
-                if req_params:
-                    self.logger.debug(
-                        f"Request -> {method} {path}. Body: {req_params}. "
-                        f"Headers: {headers}"
-                    )
-                else:
-                    self.logger.debug(
-                        f"Request -> {method} {path}. Headers: {headers}"
-                    )
-
             if method == "GET":
                 if req_params:
                     r = self.client.prepare_request(
@@ -270,6 +266,18 @@ class _V5HTTPManager:
                         method, path, data=req_params, headers=headers
                     )
                 )
+            
+            # Log the request.
+            if self.log_requests:
+                if req_params:
+                    self.logger.debug(
+                        f"Request -> {method} {path}. Body: {req_params}. "
+                        f"Headers: {r.headers}"
+                    )
+                else:
+                    self.logger.debug(
+                        f"Request -> {method} {path}. Headers: {r.headers}"
+                    )
 
             # Attempt the request.
             try:
