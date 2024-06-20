@@ -194,6 +194,22 @@ class AccountHTTP(_V5HTTPManager):
             auth=True,
         )
 
+    def get_contract_transaction_log(self, **kwargs):
+        """Query transaction logs in Classic account.
+
+        Returns:
+            Request results as dictionary.
+
+        Additional information:
+            https://bybit-exchange.github.io/docs/v5/account/contract-transaction-log
+        """
+        return self._submit_request(
+            method="GET",
+            path=f"{self.endpoint}{Account.GET_CONTRACT_TRANSACTION_LOG}",
+            query=kwargs,
+            auth=True,
+        )
+
     def set_margin_mode(self, **kwargs):
         """Default is regular margin mode. This mode is valid for USDT Perp, USDC Perp and USDC Option.
 
