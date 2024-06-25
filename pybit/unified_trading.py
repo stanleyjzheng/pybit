@@ -17,6 +17,7 @@ from ._v5_user import UserHTTP
 from ._v5_broker import BrokerHTTP
 from ._v5_institutional_loan import InstitutionalLoanHTTP
 from ._websocket_stream import _V5WebSocketManager
+from ._websocket_trading import _V5TradeWebSocketManager
 
 
 WSS_NAME = "Unified V5"
@@ -292,3 +293,20 @@ class WebSocket(_V5WebSocketManager):
         self._validate_public_topic()
         topic = "lt.{symbol}"
         self.subscribe(topic, callback, symbol)
+
+
+class WebSocketTrading(_V5TradeWebSocketManager):
+    def __init__(self, recv_window=0, referral_id="", **kwargs):
+        super().__init__(recv_window, referral_id, **kwargs)
+
+    def place_order(self, callback, **kwargs):
+        operation = "order.create"
+        self._send_order_operation(operation, callback, kwargs)
+
+    def amend_order(self, callback, **kwargs):
+        operation = "order.amend"
+        self._send_order_operation(operation, callback, kwargs)
+
+    def cancel_order(self, callback, **kwargs):
+        operation = "order.cancel"
+        self._send_order_operation(operation, callback, kwargs)
