@@ -215,7 +215,7 @@ class PositionHTTP(_V5HTTPManager):
             Request results as dictionary.
 
         Additional information:
-            https://bybit-exchange.github.io/docs/v5/position/execution
+            https://bybit-exchange.github.io/docs/v5/order/execution
         """
         return self._submit_request(
             method="GET",
