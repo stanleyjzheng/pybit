@@ -30,6 +30,6 @@ setup(
     install_requires=[
         "requests",
         "websocket-client",
-        "websockets",
+        "pycryptodome",
     ],
 )
