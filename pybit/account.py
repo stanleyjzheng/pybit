@@ -13,6 +13,7 @@ class Account(str, Enum):
     GET_FEE_RATE = "/v5/account/fee-rate"
     GET_ACCOUNT_INFO = "/v5/account/info"
     GET_TRANSACTION_LOG = "/v5/account/transaction-log"
+    GET_CONTRACT_TRANSACTION_LOG = "/v5/account/contract-transaction-log"
     SET_MARGIN_MODE = "/v5/account/set-margin-mode"
     SET_MMP = "/v5/account/mmp-modify"
     RESET_MMP = "/v5/account/mmp-reset"
