@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
-## Unreleased
+## [5.8.0] - 2024-06-26
 ### Added
 - [WebSocket Trading](https://bybit-exchange.github.io/docs/v5/websocket/trade/guideline) support
 - Add `get_contract_transaction_log`
