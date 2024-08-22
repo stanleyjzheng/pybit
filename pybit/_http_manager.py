@@ -11,7 +11,7 @@ import json
 import logging
 import requests
 
-from datetime import datetime as dt
+from datetime import datetime as dt, timezone
 
 from .exceptions import FailedRequestError, InvalidRequestError
 from . import _helpers
@@ -221,7 +221,7 @@ class _V5HTTPManager:
                     request=f"{method} {path}: {req_params}",
                     message="Bad Request. Retries exceeded maximum.",
                     status_code=400,
-                    time=dt.utcnow().strftime("%H:%M:%S"),
+                    time=dt.now(timezone.utc).strftime("%H:%M:%S"),
                     resp_headers=None,
                 )
 
@@ -266,7 +266,7 @@ class _V5HTTPManager:
                         method, path, data=req_params, headers=headers
                     )
                 )
-            
+
             # Log the request.
             if self.log_requests:
                 if req_params:
@@ -307,7 +307,7 @@ class _V5HTTPManager:
                     request=f"{method} {path}: {req_params}",
                     message=error_msg,
                     status_code=s.status_code,
-                    time=dt.utcnow().strftime("%H:%M:%S"),
+                    time=dt.now(timezone.utc).strftime("%H:%M:%S"),
                     resp_headers=s.headers,
                 )
 
@@ -327,7 +327,7 @@ class _V5HTTPManager:
                         request=f"{method} {path}: {req_params}",
                         message="Conflict. Could not decode JSON.",
                         status_code=409,
-                        time=dt.utcnow().strftime("%H:%M:%S"),
+                        time=dt.now(timezone.utc).strftime("%H:%M:%S"),
                         resp_headers=s.headers,
                     )
 
@@ -380,7 +380,7 @@ class _V5HTTPManager:
                         request=f"{method} {path}: {req_params}",
                         message=s_json[ret_msg],
                         status_code=s_json[ret_code],
-                        time=dt.utcnow().strftime("%H:%M:%S"),
+                        time=dt.now(timezone.utc).strftime("%H:%M:%S"),
                         resp_headers=s.headers,
                     )
             else:
