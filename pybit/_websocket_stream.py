@@ -18,6 +18,7 @@ DEMO_SUBDOMAIN_TESTNET = "stream-demo-testnet"
 DEMO_SUBDOMAIN_MAINNET = "stream-demo"
 DOMAIN_MAIN = "bybit"
 DOMAIN_ALT = "bytick"
+TLD_MAIN = "com"
 
 
 class _WebSocketManager:
@@ -26,6 +27,7 @@ class _WebSocketManager:
         callback_function,
         ws_name,
         testnet,
+        tld="",
         domain="",
         demo=False,
         rsa_authentication=False,
@@ -40,6 +42,7 @@ class _WebSocketManager:
     ):
         self.testnet = testnet
         self.domain = domain
+        self.tld = tld
         self.rsa_authentication = rsa_authentication
         self.demo = demo
         # Set API keys.
@@ -126,12 +129,13 @@ class _WebSocketManager:
         # Set endpoint.
         subdomain = SUBDOMAIN_TESTNET if self.testnet else SUBDOMAIN_MAINNET
         domain = DOMAIN_MAIN if not self.domain else self.domain
+        tld = TLD_MAIN if not self.tld else self.tld
         if self.demo:
             if self.testnet:
                 subdomain = DEMO_SUBDOMAIN_TESTNET
             else:
                 subdomain = DEMO_SUBDOMAIN_MAINNET
-        url = url.format(SUBDOMAIN=subdomain, DOMAIN=domain)
+        url = url.format(SUBDOMAIN=subdomain, DOMAIN=domain, TLD=tld)
         self.endpoint = url
 
         # Attempt to connect for X seconds.
