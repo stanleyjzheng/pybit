@@ -69,7 +69,7 @@ class SpotMarginTradeHTTP(_V5HTTPManager):
             auth=True,
         )
 
-    def spot_margin_trade_get_historical_interest_rate(self):
+    def spot_margin_trade_get_historical_interest_rate(self, **kwargs):
         """UTA only. Queries up to six months borrowing interest rate of Margin trading.
 
         Required args:
@@ -84,6 +84,7 @@ class SpotMarginTradeHTTP(_V5HTTPManager):
         return self._submit_request(
             method="GET",
             path=f"{self.endpoint}{SpotMarginTrade.HISTORICAL_INTEREST}",
+            query=kwargs,
             auth=True,
         )
 
