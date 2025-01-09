@@ -136,7 +136,7 @@ class WebSocket(_V5WebSocketManager):
         Push frequency: real-time
 
         Additional information:
-            https://bybit-exchange.github.io/docs/v5/websocket/private/execution
+            https://bybit-exchange.github.io/docs/v5/websocket/private/fast-execution
         """
         self._validate_private_topic()
         topic = "execution.fast"
