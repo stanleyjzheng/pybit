@@ -308,6 +308,7 @@ class _V5WebSocketManager(_WebSocketManager):
             "order",
             "wallet",
             "greeks",
+            "execution.fast"
         ]
 
     def subscribe(

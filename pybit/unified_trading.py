@@ -129,6 +129,18 @@ class WebSocket(_V5WebSocketManager):
         self._validate_private_topic()
         topic = "execution"
         self.subscribe(topic, callback)
+    
+    def fast_execution_stream(self, callback):
+        """Subscribe to the execution stream to see your executions in real-time.
+
+        Push frequency: real-time
+
+        Additional information:
+            https://bybit-exchange.github.io/docs/v5/websocket/private/execution
+        """
+        self._validate_private_topic()
+        topic = "execution.fast"
+        self.subscribe(topic, callback)
 
     def wallet_stream(self, callback):
         """Subscribe to the wallet stream to see changes to your wallet in real-time.
