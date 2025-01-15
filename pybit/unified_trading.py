@@ -129,9 +129,12 @@ class WebSocket(_V5WebSocketManager):
         self._validate_private_topic()
         topic = "execution"
         self.subscribe(topic, callback)
-    
-    def fast_execution_stream(self, callback):
-        """Subscribe to the execution stream to see your executions in real-time.
+
+    def fast_execution_stream(self, callback, categorised_topic=""):
+        """Fast execution stream significantly reduces data latency compared
+        original "execution" stream. However, it pushes limited execution type
+        of trades, and fewer data fields.
+        Use categorised_topic as a filter for a certain `category`. See docs.
 
         Push frequency: real-time
 
@@ -140,6 +143,8 @@ class WebSocket(_V5WebSocketManager):
         """
         self._validate_private_topic()
         topic = "execution.fast"
+        if categorised_topic:
+            topic += "." + categorised_topic
         self.subscribe(topic, callback)
 
     def wallet_stream(self, callback):
