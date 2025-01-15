@@ -130,6 +130,23 @@ class WebSocket(_V5WebSocketManager):
         topic = "execution"
         self.subscribe(topic, callback)
 
+    def fast_execution_stream(self, callback, categorised_topic=""):
+        """Fast execution stream significantly reduces data latency compared
+        original "execution" stream. However, it pushes limited execution type
+        of trades, and fewer data fields.
+        Use categorised_topic as a filter for a certain `category`. See docs.
+
+        Push frequency: real-time
+
+        Additional information:
+            https://bybit-exchange.github.io/docs/v5/websocket/private/fast-execution
+        """
+        self._validate_private_topic()
+        topic = "execution.fast"
+        if categorised_topic:
+            topic += "." + categorised_topic
+        self.subscribe(topic, callback)
+
     def wallet_stream(self, callback):
         """Subscribe to the wallet stream to see changes to your wallet in real-time.
 
