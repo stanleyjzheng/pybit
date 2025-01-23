@@ -5,7 +5,7 @@ import json
 import logging
 import requests
 
-from datetime import datetime as dt
+from datetime import datetime as dt, timezone
 
 from .exceptions import FailedRequestError, InvalidRequestError
 from .. import VERSION
@@ -199,7 +199,7 @@ class _HTTPManager:
                     request=f"{method} {path}: {req_params}",
                     message="Bad Request. Retries exceeded maximum.",
                     status_code=400,
-                    time=dt.utcnow().strftime("%H:%M:%S")
+                    time=dt.now(timezone.utc).strftime("%H:%M:%S")
                 )
 
             retries_remaining = f"{retries_attempted} retries remain."
@@ -308,7 +308,7 @@ class _HTTPManager:
                     request=f"{method} {path}: {req_params}",
                     message=error_msg,
                     status_code=s.status_code,
-                    time=dt.utcnow().strftime("%H:%M:%S")
+                    time=dt.now(timezone.utc).strftime("%H:%M:%S")
                 )
 
             # Convert response to dictionary, or raise if requests error.
@@ -327,7 +327,7 @@ class _HTTPManager:
                         request=f"{method} {path}: {req_params}",
                         message="Conflict. Could not decode JSON.",
                         status_code=409,
-                        time=dt.utcnow().strftime("%H:%M:%S")
+                        time=dt.now(timezone.utc).strftime("%H:%M:%S")
                     )
 
             if "usdc" in path:
@@ -389,7 +389,7 @@ class _HTTPManager:
                         request=f"{method} {path}: {req_params}",
                         message=s_json[ret_msg],
                         status_code=s_json[ret_code],
-                        time=dt.utcnow().strftime("%H:%M:%S")
+                        time=dt.now(timezone.utc).strftime("%H:%M:%S")
                     )
             else:
                 if self.record_request_time:
@@ -729,7 +729,7 @@ class _V3HTTPManager:
                     request=f"{method} {path}: {req_params}",
                     message="Bad Request. Retries exceeded maximum.",
                     status_code=400,
-                    time=dt.utcnow().strftime("%H:%M:%S")
+                    time=dt.now(timezone.utc).strftime("%H:%M:%S")
                 )
 
             retries_remaining = f"{retries_attempted} retries remain."
@@ -813,7 +813,7 @@ class _V3HTTPManager:
                     request=f"{method} {path}: {req_params}",
                     message=error_msg,
                     status_code=s.status_code,
-                    time=dt.utcnow().strftime("%H:%M:%S")
+                    time=dt.now(timezone.utc).strftime("%H:%M:%S")
                 )
 
             # Convert response to dictionary, or raise if requests error.
@@ -832,7 +832,7 @@ class _V3HTTPManager:
                         request=f"{method} {path}: {req_params}",
                         message="Conflict. Could not decode JSON.",
                         status_code=409,
-                        time=dt.utcnow().strftime("%H:%M:%S")
+                        time=dt.now(timezone.utc).strftime("%H:%M:%S")
                     )
 
             ret_code = "retCode"
@@ -889,7 +889,7 @@ class _V3HTTPManager:
                         request=f"{method} {path}: {req_params}",
                         message=s_json[ret_msg],
                         status_code=s_json[ret_code],
-                        time=dt.utcnow().strftime("%H:%M:%S")
+                        time=dt.now(timezone.utc).strftime("%H:%M:%S")
                     )
             else:
                 if self.record_request_time:
