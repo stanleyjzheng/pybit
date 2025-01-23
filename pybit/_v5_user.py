@@ -163,6 +163,9 @@ class UserHTTP(_V5HTTPManager):
     def delete_sub_uid(self, **kwargs):
         """Delete a sub UID. Before deleting the sub UID, please make sure there is no asset. Use master user's api key only.
 
+        Required args:
+            subMemberId (integer): Sub UID
+
         Returns:
             Request results as dictionary.
 
@@ -172,6 +175,25 @@ class UserHTTP(_V5HTTPManager):
         return self._submit_request(
             method="POST",
             path=f"{self.endpoint}{User.DELETE_SUB_UID}",
+            query=kwargs,
+            auth=True,
+        )
+
+    def get_all_sub_api_keys(self, **kwargs):
+        """Query all api keys information of a sub UID.
+
+        Required args:
+            subMemberId (integer): Sub UID
+
+        Returns:
+            Request results as dictionary.
+
+        Additional information:
+            https://bybit-exchange.github.io/docs/v5/user/list-sub-apikeys
+        """
+        return self._submit_request(
+            method="GET",
+            path=f"{self.endpoint}{User.GET_ALL_SUB_API_KEYS}",
             query=kwargs,
             auth=True,
         )

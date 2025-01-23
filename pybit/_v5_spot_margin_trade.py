@@ -70,7 +70,7 @@ class SpotMarginTradeHTTP(_V5HTTPManager):
         )
 
     def spot_margin_trade_get_historical_interest_rate(self, **kwargs):
-        """UTA only. Queries up to six months borrowing interest rate of Margin trading.
+        """UTA only. Queries up to six months of borrowing interest rates.
 
         Required args:
             currency (string): Coin name, uppercase only.
