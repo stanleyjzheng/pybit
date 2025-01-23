@@ -163,6 +163,9 @@ class UserHTTP(_V5HTTPManager):
     def delete_sub_uid(self, **kwargs):
         """Delete a sub UID. Before deleting the sub UID, please make sure there is no asset. Use master user's api key only.
 
+        Required args:
+            subMemberId (integer): Sub UID
+
         Returns:
             Request results as dictionary.
 
