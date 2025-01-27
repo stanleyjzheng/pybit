@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [5.9.0] - 2025-01-27
+
+Thanks goes to [Kamsby](https://github.com/Kamsby), [kolya5544](https://github.com/kolya5544), and [LordGhostX](https://github.com/LordGhostX) for contributing to this release.
+
+### Added
+- Add `fast_execution_stream` WebSocket
+- Add `tld` arg to WebSocket. TLD stands for top-level domain.
+- Add `delete_sub_uid` and `get_all_sub_api_keys` – user-related HTTP endpoints
+- Add `spot_margin_trade_get_historical_interest_rate` – a spot margin HTTP endpoint
+- Add `add_or_reduce_margin` – a position HTTP endpoint
+- Add `get_transferable_amount` – an account-related HTTP endpoint to complement `get_wallet_balance`
+- Add `get_exchange_broker_earnings` (see Deprecated)
+
+### Deprecated
+- `get_broker_earnings` HTTP endpoint. Instead use `get_exchange_broker_earnings`.
+
 ## [5.8.0] - 2024-06-26
 ### Added
 - [WebSocket Trading](https://bybit-exchange.github.io/docs/v5/websocket/trade/guideline) support
