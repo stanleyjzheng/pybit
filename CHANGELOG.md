@@ -22,6 +22,10 @@ Thanks goes to [Kamsby](https://github.com/Kamsby), [kolya5544](https://github.c
 ### Deprecated
 - `get_broker_earnings` HTTP endpoint. Instead use `get_exchange_broker_earnings`.
 
+### Removed
+- All modules under the `legacy` subpackage. All these APIs are offline by this point and their functionality is covered by the V5 API / Unified Trading Account.
+
+
 ## [5.8.0] - 2024-06-26
 ### Added
 - [WebSocket Trading](https://bybit-exchange.github.io/docs/v5/websocket/trade/guideline) support
