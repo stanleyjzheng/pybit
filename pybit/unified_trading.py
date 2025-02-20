@@ -350,3 +350,15 @@ class WebSocketTrading(_V5TradeWebSocketManager):
     def cancel_order(self, callback, **kwargs):
         operation = "order.cancel"
         self._send_order_operation(operation, callback, kwargs)
+
+    def place_batch_order(self, callback, **kwargs):
+        operation = "order.create-batch"
+        self._send_order_operation(operation, callback, kwargs)
+
+    def amend_batch_order(self, callback, **kwargs):
+        operation = "order.amend-batch"
+        self._send_order_operation(operation, callback, kwargs)
+
+    def cancel_batch_order(self, callback, **kwargs):
+        operation = "order.cancel-batch"
+        self._send_order_operation(operation, callback, kwargs)
