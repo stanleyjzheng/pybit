@@ -210,6 +210,10 @@ class _V5HTTPManager:
                 if isinstance(query[i], float) and query[i] == int(query[i]):
                     query[i] = int(query[i])
 
+            # Remove params with None value from the request.
+            query = {key: value for key, value in query.items()
+                     if value is not None}
+
         # Send request and return headers with body. Retry if failed.
         retries_attempted = self.max_retries
         req_params = None
