@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## Unreleased
+### Changed
+- Renamed the arg `callback_function` in the WebSocket object to `_callback_function` as it's intended to be private and is not useful to the user. This is not the `callback_function` arg you pass when subscribing to a websocket topic. ([https://github.com/bybit-exchange/pybit/issues/270](#270))
+
+
 ## [5.9.0] - 2025-01-27
 
 Thanks goes to [Kamsby](https://github.com/Kamsby), [kolya5544](https://github.com/kolya5544), and [LordGhostX](https://github.com/LordGhostX) for contributing to this release.

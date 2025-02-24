@@ -24,7 +24,7 @@ TLD_MAIN = "com"
 class _WebSocketManager:
     def __init__(
         self,
-        callback_function,
+        _callback_function,
         ws_name,
         testnet,
         tld="",
@@ -49,7 +49,7 @@ class _WebSocketManager:
         self.api_key = api_key
         self.api_secret = api_secret
 
-        self.callback = callback_function
+        self.callback = _callback_function
         self.ws_name = ws_name
         if api_key:
             self.ws_name += " (Auth)"
