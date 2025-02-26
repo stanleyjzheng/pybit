@@ -1,3 +1,4 @@
+import logging
 from dataclasses import dataclass
 from pybit.exceptions import (
     InvalidChannelTypeError,
@@ -19,6 +20,8 @@ from ._v5_institutional_loan import InstitutionalLoanHTTP
 from ._websocket_stream import _V5WebSocketManager
 from ._websocket_trading import _V5TradeWebSocketManager
 
+
+logger = logging.getLogger(__name__)
 
 WSS_NAME = "Unified V5"
 PRIVATE_WSS = "wss://{SUBDOMAIN}.{DOMAIN}.com/v5/private"
@@ -251,7 +254,7 @@ class WebSocket(_V5WebSocketManager):
         self.subscribe(topic, callback, symbol)
 
     def liquidation_stream(self, symbol: (str, list), callback):
-        """[DEPRECATED] Liquidation stream, please move to All Liquidation Subscribe to the liquidation stream.
+        """
         Pushes at most one order per second per symbol.
         As such, this feed does not push all liquidations that occur on Bybit.
 
@@ -263,12 +266,15 @@ class WebSocket(_V5WebSocketManager):
          Additional information:
             https://bybit-exchange.github.io/docs/v5/websocket/public/liquidation
         """
+        logger.warning("liquidation_stream() is deprecated. Please use "
+                       "all_liquidation_stream().")
         self._validate_public_topic()
         topic = "liquidation.{symbol}"
         self.subscribe(topic, callback, symbol)
 
     def all_liquidation_stream(self, symbol: (str, list), callback):
-        """Subscribe to the liquidation stream, push all liquidations that occur on Bybit.
+        """Subscribe to the liquidation stream, push all liquidations that
+        occur on Bybit.
 
         Push frequency: 500ms
 
