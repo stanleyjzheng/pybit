@@ -251,18 +251,35 @@ class WebSocket(_V5WebSocketManager):
         self.subscribe(topic, callback, symbol)
 
     def liquidation_stream(self, symbol: (str, list), callback):
-        """Subscribe to the klines stream.
+        """[DEPRECATED] Liquidation stream, please move to All Liquidation Subscribe to the liquidation stream.
+        Pushes at most one order per second per symbol.
+        As such, this feed does not push all liquidations that occur on Bybit.
 
-        Push frequency: 1-60s
+        Push frequency: 1s
 
         Required args:
             symbol (string/list): Symbol name(s)
 
          Additional information:
-            https://bybit-exchange.github.io/docs/v5/websocket/public/kline
+            https://bybit-exchange.github.io/docs/v5/websocket/public/liquidation
         """
         self._validate_public_topic()
         topic = "liquidation.{symbol}"
+        self.subscribe(topic, callback, symbol)
+
+    def all_liquidation_stream(self, symbol: (str, list), callback):
+        """Subscribe to the liquidation stream, push all liquidations that occur on Bybit.
+
+        Push frequency: 500ms
+
+        Required args:
+            symbol (string/list): Symbol name(s)
+
+         Additional information:
+            https://bybit-exchange.github.io/docs/v5/websocket/public/all-liquidation
+        """
+        self._validate_public_topic()
+        topic = "allLiquidation.{symbol}"
         self.subscribe(topic, callback, symbol)
 
     def lt_kline_stream(self, interval: int, symbol: (str, list), callback):
