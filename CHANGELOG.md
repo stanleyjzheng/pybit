@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Renamed the arg `callback_function` in the WebSocket object to `_callback_function` as it's intended to be private and is not useful to the user. This is not the `callback_function` arg you pass when subscribing to a websocket topic. ([https://github.com/bybit-exchange/pybit/issues/270](#270))
 - Allow passing None as a value to an HTTP request, which results in the parameter being disregarded from the final request sent.
+- Add All Liquidation websocket topic.
+- Deprecate old liquidations websocket topic.
 
 
 ## [5.9.0] - 2025-01-27
