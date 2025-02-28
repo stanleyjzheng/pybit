@@ -48,7 +48,7 @@ while True:
     )
     sleep(1)
     # Batch place two orders. Note that batch amend and cancel can be used in
-    # the same way – by passing a python dictionary to the request parameter.
+    # the same way – by passing a list of dictionaries to the request parameter.
     request = [
         {
             "symbol": "BTCUSDT",
