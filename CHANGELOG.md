@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Allow passing None as a value to an HTTP request, which results in the parameter being disregarded from the final request sent.
 - Add All Liquidation websocket topic.
 - Deprecate old liquidations websocket topic.
+- Add batch WebSocket order methods: `place_batch_order`, `amend_batch_order`, `cancel_batch_order`
 
 
 ## [5.9.0] - 2025-01-27
