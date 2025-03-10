@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add All Liquidation websocket topic.
 - Deprecate old liquidations websocket topic.
 - Add batch WebSocket order methods: `place_batch_order`, `amend_batch_order`, `cancel_batch_order`
+- Add HTTP API methods for [Convert](https://bybit-exchange.github.io/docs/v5/asset/convert/guideline), [Earn](https://bybit-exchange.github.io/docs/v5/earn/product-info), and [Crypto Loan](https://bybit-exchange.github.io/docs/v5/crypto-loan/collateral-coin).
 
 
 ## [5.9.0] - 2025-01-27
