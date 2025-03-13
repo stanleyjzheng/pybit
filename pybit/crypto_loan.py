@@ -10,8 +10,9 @@ class CryptoLoan(str, Enum):
     GET_UNPAID_LOANS = "/v5/crypto-loan/ongoing-orders"
     GET_LOAN_REPAYMENT_HISTORY = "/v5/crypto-loan/repayment-history"
     GET_COMPLETED_LOAN_ORDER_HISTORY = "/v5/crypto-loan/borrow-history"
+    GET_MAX_ALLOWED_COLLATERAL_REDUCTION_AMOUNT = "/v5/crypto-loan/max-collateral-amount"
     ADJUST_COLLATERAL_AMOUNT = "/v5/crypto-loan/adjust-ltv"
-    GET_LOAN_LTV_ADJUSTMENT_HISTORY = "/v5/crypto-loan/adjustment-history"
+    GET_CRYPTO_LOAN_LTV_ADJUSTMENT_HISTORY = "/v5/crypto-loan/adjustment-history"
 
     def __str__(self) -> str:
         return self.value
