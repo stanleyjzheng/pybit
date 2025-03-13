@@ -138,7 +138,60 @@ class CryptoLoanHTTP(_V5HTTPManager):
         """
         return self._submit_request(
             method="GET",
-            path=f"{self.endpoint}{CryptoLoan.GET_LOAN_REPAYMENT_HISTORY}",
+            path=f"{self.endpoint}{CryptoLoan.GET_COMPLETED_LOAN_ORDER_HISTORY}",
+            query=kwargs,
+            auth=True,
+        )
+
+    def get_max_allowed_collateral_reduction_amount(self, **kwargs):
+        """
+        Query for the maximum amount by which collateral may be reduced by.
+
+        Returns:
+            Request results as dictionary.
+
+        Additional information:
+            https://bybit-exchange.github.io/docs/v5/crypto-loan/reduce-max-collateral-amt
+        """
+        return self._submit_request(
+            method="GET",
+            path=f"{self.endpoint}{CryptoLoan.GET_MAX_ALLOWED_COLLATERAL_REDUCTION_AMOUNT}",
+            query=kwargs,
+            auth=True,
+        )
+
+    def adjust_collateral_amount(self, **kwargs):
+        """
+        You can increase or reduce your collateral amount. When you reduce,
+        please obey the max. allowed reduction amount.
+
+        Returns:
+            Request results as dictionary.
+
+        Additional information:
+            https://bybit-exchange.github.io/docs/v5/crypto-loan/adjust-collateral
+        """
+        return self._submit_request(
+            method="GET",
+            path=f"{self.endpoint}{CryptoLoan.ADJUST_COLLATERAL_AMOUNT}",
+            query=kwargs,
+            auth=True,
+        )
+
+    def get_crypto_loan_ltv_adjustment_history(self, **kwargs):
+        """
+        You can increase or reduce your collateral amount. When you reduce,
+        please obey the max. allowed reduction amount.
+
+        Returns:
+            Request results as dictionary.
+
+        Additional information:
+            https://bybit-exchange.github.io/docs/v5/crypto-loan/ltv-adjust-history
+        """
+        return self._submit_request(
+            method="GET",
+            path=f"{self.endpoint}{CryptoLoan.GET_CRYPTO_LOAN_LTV_ADJUSTMENT_HISTORY}",
             query=kwargs,
             auth=True,
         )
