@@ -1,20 +1,22 @@
+import base64
+import hashlib
+import hmac
+import json
+import logging
+import time
 from collections import defaultdict
 from dataclasses import dataclass, field
-import time
-import hmac
-import hashlib
+from datetime import datetime as dt
+from datetime import timezone
+
+import requests
 from Crypto.Hash import SHA256
 from Crypto.PublicKey import RSA
 from Crypto.Signature import PKCS1_v1_5
-import base64
-import json
-import logging
-import requests
+from requests.adapters import HTTPAdapter
 
-from datetime import datetime as dt, timezone
-
-from .exceptions import FailedRequestError, InvalidRequestError
 from . import _helpers
+from .exceptions import FailedRequestError, InvalidRequestError
 
 # Requests will use simplejson if available.
 try:
@@ -46,9 +48,7 @@ def generate_signature(use_rsa_authentication, secret, param_str):
     def generate_rsa():
         hash = SHA256.new(param_str.encode("utf-8"))
         encoded_signature = base64.b64encode(
-            PKCS1_v1_5.new(RSA.importKey(secret)).sign(
-                hash
-            )
+            PKCS1_v1_5.new(RSA.importKey(secret)).sign(hash)
         )
         return encoded_signature.decode()
 
@@ -117,6 +117,9 @@ class _V5HTTPManager:
         self.logger.debug("Initializing HTTP session.")
 
         self.client = requests.Session()
+        adapter = HTTPAdapter(pool_connections=100, pool_maxsize=100)
+        self.client.mount("http://", adapter)
+        self.client.mount("https://", adapter)
         self.client.headers.update(
             {
                 "Content-Type": "application/json",
@@ -211,8 +214,9 @@ class _V5HTTPManager:
                     query[i] = int(query[i])
 
             # Remove params with None value from the request.
-            query = {key: value for key, value in query.items()
-                     if value is not None}
+            query = {
+                key: value for key, value in query.items() if value is not None
+            }
 
         # Send request and return headers with body. Retry if failed.
         retries_attempted = self.max_retries
@@ -362,10 +366,16 @@ class _V5HTTPManager:
                         )
 
                         # Calculate how long we need to wait in milliseconds.
-                        limit_reset_time = int(s.headers["X-Bapi-Limit-Reset-Timestamp"])
-                        limit_reset_str = dt.fromtimestamp(limit_reset_time / 10**3).strftime(
-                            "%H:%M:%S.%f")[:-3]
-                        delay_time = (int(limit_reset_time) - _helpers.generate_timestamp()) / 10**3
+                        limit_reset_time = int(
+                            s.headers["X-Bapi-Limit-Reset-Timestamp"]
+                        )
+                        limit_reset_str = dt.fromtimestamp(
+                            limit_reset_time / 10**3
+                        ).strftime("%H:%M:%S.%f")[:-3]
+                        delay_time = (
+                            int(limit_reset_time)
+                            - _helpers.generate_timestamp()
+                        ) / 10**3
                         error_msg = (
                             f"API rate limit will reset at {limit_reset_str}. "
                             f"Sleeping for {int(delay_time * 10**3)} milliseconds"
@@ -389,12 +399,14 @@ class _V5HTTPManager:
                     )
             else:
                 if self.log_requests:
-                    self.logger.debug(
-                        f"Response headers: {s.headers}"
-                    )
+                    self.logger.debug(f"Response headers: {s.headers}")
 
                 if self.return_response_headers:
-                    return s_json, s.elapsed, s.headers,
+                    return (
+                        s_json,
+                        s.elapsed,
+                        s.headers,
+                    )
                 elif self.record_request_time:
                     return s_json, s.elapsed
                 else:
