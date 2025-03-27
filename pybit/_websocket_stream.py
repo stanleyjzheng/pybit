@@ -1,13 +1,14 @@
-import websocket
+import copy
+import json
+import logging
 import threading
 import time
-import json
-from ._http_manager import generate_signature
-import logging
-import copy
 from uuid import uuid4
-from . import _helpers
 
+import websocket
+
+from . import _helpers
+from ._http_manager import generate_signature
 
 logger = logging.getLogger(__name__)
 
@@ -53,7 +54,7 @@ class _WebSocketManager:
         self.ws_name = ws_name
         if api_key:
             self.ws_name += " (Auth)"
-        
+
         # Delta time for private auth expiration in seconds
         self.private_auth_expire = private_auth_expire
 
@@ -145,9 +146,7 @@ class _WebSocketManager:
         else:
             infinitely_reconnect = False
 
-        while (
-            infinitely_reconnect or retries > 0
-        ) and not self.is_connected():
+        while (infinitely_reconnect or retries > 0) and not self.is_connected():
             logger.info(f"WebSocket {self.ws_name} attempting connection...")
             self.ws = websocket.WebSocketApp(
                 url=url,
@@ -200,7 +199,9 @@ class _WebSocketManager:
         Prepares authentication signature per Bybit API specifications.
         """
 
-        expires = _helpers.generate_timestamp() + (self.private_auth_expire * 1000)
+        expires = _helpers.generate_timestamp() + (
+            self.private_auth_expire * 1000
+        )
 
         param_str = f"GET/realtime{expires}"
 
@@ -263,9 +264,7 @@ class _WebSocketManager:
 
     def _send_initial_ping(self):
         """https://github.com/bybit-exchange/pybit/issues/164"""
-        timer = threading.Timer(
-            self.ping_interval, self._send_custom_ping
-        )
+        timer = threading.Timer(self.ping_interval, self._send_custom_ping)
         timer.start()
 
     @staticmethod
@@ -314,17 +313,9 @@ class _V5WebSocketManager(_WebSocketManager):
             "greeks",
         ]
 
-        self.other_private_topics = [
-            "execution.fast"
-        ]
+        self.other_private_topics = ["execution.fast"]
 
-    def subscribe(
-            self,
-            topic: str,
-            callback,
-            symbol: (str, list) = False
-    ):
-
+    def subscribe(self, topic: str, callback, symbol: (str, list) = False):
         def prepare_subscription_args(list_of_symbols):
             """
             Prepares the topic for subscription by formatting it with the
@@ -376,8 +367,8 @@ class _V5WebSocketManager(_WebSocketManager):
 
         # Make updates according to delta response.
         book_sides = {"b": message["data"]["b"], "a": message["data"]["a"]}
-        self.data[topic]["u"]=message["data"]["u"]
-        self.data[topic]["seq"]=message["data"]["seq"]
+        self.data[topic]["u"] = message["data"]["u"]
+        self.data[topic]["seq"] = message["data"]["seq"]
 
         for side, entries in book_sides.items():
             for entry in entries:
@@ -448,7 +439,7 @@ class _V5WebSocketManager(_WebSocketManager):
         # Futures subscription fail
         elif message.get("success") is False:
             response = message["ret_msg"]
-            logger.error("Couldn't subscribe to topic." f"Error: {response}.")
+            logger.error(f"Couldn't subscribe to topic.Error: {response}.")
             self._pop_callback(sub[0])
 
     def _process_normal_message(self, message):
@@ -498,7 +489,7 @@ class _V5WebSocketManager(_WebSocketManager):
         for topic in topics:
             if topic in self.callback_directory:
                 raise Exception(
-                    f"You have already subscribed to this topic: " f"{topic}"
+                    f"You have already subscribed to this topic: {topic}"
                 )
 
     def _set_callback(self, topic, callback_function):
