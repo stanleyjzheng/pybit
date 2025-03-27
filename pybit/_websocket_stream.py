@@ -260,7 +260,26 @@ class _WebSocketManager:
         self._send_custom_ping()
 
     def _send_custom_ping(self):
-        self.ws.send(self.custom_ping_message)
+        try:
+            if self.is_connected():
+                self.ws.send(self.custom_ping_message)
+            else:
+                logger.warning(
+                    f"WebSocket {self.ws_name} skipped custom ping, not connected."
+                )
+        except websocket.WebSocketConnectionClosedException:
+            logger.warning(
+                f"WebSocket {self.ws_name} failed to send custom ping: Connection already closed."
+            )
+        except AttributeError:
+            logger.warning(
+                f"WebSocket {self.ws_name} failed to send custom ping: WebSocket object does not exist (AttributeError)."
+            )
+        except Exception as e:
+            logger.error(
+                f"WebSocket {self.ws_name} error sending custom ping: {e}"
+            )
+            self._on_error(e)
 
     def _send_initial_ping(self):
         """https://github.com/bybit-exchange/pybit/issues/164"""
